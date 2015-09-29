@@ -1,0 +1,5 @@
+services:
+  doi.routing_loader:
+    class: OkulBilisim\OjsDoiBundle\Routing\AdvancedLoader
+    tags:
+      - { name: routing.loader }

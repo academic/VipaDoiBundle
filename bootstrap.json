@@ -1,0 +1,16 @@
+{
+  "name": "Doi",
+  "description": "Ojs Doi Plugin",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@bitbucket.org:ojsdoibundle.git"
+    }
+  ],
+  "require": {
+    "okulbilisim/ojs-doi-bundle": "dev-master"
+  },
+  "extra": {
+    "bundle-class": "OkulBilisim\\OjsDoiBundle\\OjsDoiBundle"
+  }
+}

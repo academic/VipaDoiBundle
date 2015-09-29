@@ -1,0 +1,27 @@
+{
+  "name" : "okulbilisim/ojs-doi-bundle",
+  "description" : "Doi bundle for OJS",
+  "type" : "symfony-bundle",
+  "keywords" : [
+    "doi bundle"
+  ],
+  "license" : [
+    "MIT"
+  ],
+  "require" : {
+    "php": ">=5.4.0",
+    "symfony/symfony": "~2.7",
+    "twig/extensions": "1.2.*"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "OkulBilisim\\OjsDoiBundle\\" : ""
+    }
+  },
+  "extra" : {
+  "branch-alias" :
+    {
+      "dev-master" : "0.0.1-dev"
+    }
+  }
+}
