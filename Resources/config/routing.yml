@@ -1,3 +1,3 @@
-okul_bilisim_doi_default:
+okul_bilisim_doi_generator:
   prefix:   /journal
-  resource: "@OjsDoiBundle/Resources/config/routing/default.yml"
+  resource: "@OjsDoiBundle/Resources/config/routing/generator.yml"

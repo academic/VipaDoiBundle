@@ -1,0 +1,3 @@
+okul_bilisim_doi_default_index:
+  path:     /{journalId}/article/{article}/doi
+  defaults: { _controller: "OjsDoiBundle:Generator:articleDoi" }
