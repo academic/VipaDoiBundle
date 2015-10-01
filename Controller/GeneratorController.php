@@ -17,11 +17,15 @@ class GeneratorController extends Controller
      */
     public function articleDoiAction(Article $article)
     {
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
 
         if (!$this->isGranted('VIEW', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
+        $this->throw404IfNotFound($crossrefConfig);
 
         $serializer = $serializer = $this->get('serializer');
 
@@ -29,8 +33,8 @@ class GeneratorController extends Controller
 
         $doi->head->doiBatchId = 'article_'.$article->getId().'_'.time();
         $doi->head->registrant = $article->getJournal()->getPublisher()->getName();
-        $doi->head->depositor->emailAddress = 'mail@ojs.io';
-        $doi->head->depositor->name = 'OJS ADMIN';
+        $doi->head->depositor->emailAddress = $crossrefConfig->getEmail();
+        $doi->head->depositor->name = $crossrefConfig->getFullName();
 
         $doi->body->journal->journalMetadata->fullTitle = $article->getJournal()->getTitle();
         $doi->body->journal->journalMetadata->issn->value = $article->getJournal()->getIssn();

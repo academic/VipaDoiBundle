@@ -1,0 +1,63 @@
+OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig:
+  type: entity
+  table: doi_crossref_config
+  repositoryClass: OkulBilisim\OjsDoiBundle\Entity\CrossrefConfigRepository
+  lifecycleCallbacks: {  }
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    username:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    password:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    fullName:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    email:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    createdBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: create
+    updatedBy:
+      type: string
+      nullable: true
+      gedmo:
+        blameable:
+          on: update
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  oneToOne:
+    journal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      joinColumns:
+        journal_id:
+          referencedColumnName: id
+
+  gedmo:
+    loggable: true
