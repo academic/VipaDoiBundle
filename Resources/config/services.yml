@@ -4,3 +4,8 @@ services:
     arguments: [@security.authorization_checker, @ojs.journal_service]
     tags:
       - { name: kernel.event_subscriber }
+  doi.article_list_event_listener:
+    class: OkulBilisim\OjsDoiBundle\EventListener\ArticleListEventListener
+    arguments: [@ojs.journal_service]
+    tags:
+      - { name: kernel.event_subscriber }
