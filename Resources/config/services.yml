@@ -1,0 +1,6 @@
+services:
+  doi.left_menu_listener:
+    class: OkulBilisim\OjsDoiBundle\EventListener\LeftMenuListener
+    arguments: [@security.authorization_checker, @ojs.journal_service]
+    tags:
+      - { name: kernel.event_subscriber }
