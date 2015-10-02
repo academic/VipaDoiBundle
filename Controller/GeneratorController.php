@@ -3,9 +3,7 @@ namespace OkulBilisim\OjsDoiBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\ArticleTranslation;
-use OkulBilisim\OjsDoiBundle\Object\DoiBatch;
-use OkulBilisim\OjsDoiBundle\Object\Person;
+use OkulBilisim\OjsDoiBundle\Service\DoiMetaGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -18,7 +16,9 @@ class GeneratorController extends Controller
     public function articleDoiAction(Article $article)
     {
         $em = $this->getDoctrine()->getManager();
+        $serializer = $serializer = $this->get('serializer');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $doiGenerator = new DoiMetaGenerator();
 
         $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
 
@@ -27,45 +27,7 @@ class GeneratorController extends Controller
         }
         $this->throw404IfNotFound($crossrefConfig);
 
-        $serializer = $serializer = $this->get('serializer');
-
-        $doi = new DoiBatch();
-
-        $doi->head->doiBatchId = 'article_'.$article->getId().'_'.time();
-        $doi->head->registrant = $article->getJournal()->getPublisher()->getName();
-        $doi->head->depositor->emailAddress = $crossrefConfig->getEmail();
-        $doi->head->depositor->name = $crossrefConfig->getFullName();
-
-        $doi->body->journal->journalMetadata->fullTitle = $article->getJournal()->getTitle();
-        $doi->body->journal->journalMetadata->issn->value = $article->getJournal()->getIssn();
-
-        $doi->body->journal->journalIssue->issue = $article->getIssue()->getId();
-        $doi->body->journal->journalIssue->journalVolume->volume = $article->getIssue()->getVolume();
-        $doi->body->journal->journalIssue->publicationDate->setDate($article->getIssue()->getDatePublished());
-
-        $doi->body->journal->journalArticle->publicationDate->setDate($article->getPubdate());
-        $doi->body->journal->journalArticle->language = $article->getPrimaryLanguage();
-        $doi->body->journal->journalArticle->pages->firstPage = $article->getFirstPage();
-        $doi->body->journal->journalArticle->pages->lastPage = $article->getLastPage();
-
-
-        /** @var ArticleTranslation[] $translations */
-        $translations = $article->getTranslations();
-        foreach ($translations as $translation) {
-            $doi->body->journal->journalArticle->titles->add($translation->getTitle());
-        }
-        $k = 0;
-        foreach ($article->getArticleAuthors() as $author) {
-            $person = new Person();
-            if (0 === $k) {
-                $person->sequence = "first";
-            }
-            $person->givenName = $author->getAuthor()->getFirstName();
-            $person->surname = $author->getAuthor()->getLastName();
-            $doi->body->journal->journalArticle->contributors->add($person);
-            $k++;
-        }
-
+        $doi = $doiGenerator->getArticle($article, $crossrefConfig);
         $data = $serializer->serialize($doi, 'xml');
 
         return new Response(
