@@ -57,7 +57,11 @@ class DoiController extends Controller
                 ]
             );
             $doi = json_decode($response->getBody()->getContents(), false);
-            $article->setDoi($doi['dois'][0]);
+            if(!empty($doi['message']['dois'][0])) {
+                $article->setDoi($doi['message']['dois'][0]);
+            }
+            $em->persist($article);
+            $em->flush();
 
         } catch (ServerException $e) {
             $this->get('logger')->addError('doiFailed', array($e->getResponse()->getReasonPhrase(), $article->getId()));
