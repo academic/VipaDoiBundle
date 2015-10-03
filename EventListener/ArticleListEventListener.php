@@ -45,7 +45,7 @@ class ArticleListEventListener implements EventSubscriberInterface
         $actionColumn = $grid->getColumn("actions");
         $rowActions = $actionColumn->getRowActions();
 
-        $rowAction = new RowAction('<i class="fa fa-copyright"></i>', 'okul_bilisim_doi_generator_article');
+        $rowAction = new RowAction('<i class="fa fa-copyright"></i>', 'okul_bilisim_doi_doi_article_doi');
         $rowAction->setAttributes(
             [
                 'class' => 'btn btn-primary btn-xs',
