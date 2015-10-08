@@ -9,3 +9,9 @@ services:
     arguments: [@ojs.journal_service]
     tags:
       - { name: kernel.event_subscriber }
+  doi.generator:
+    class: OkulBilisim\OjsDoiBundle\Service\DoiGenerator
+    arguments: [@ojs.journal_service, @doctrine.orm.entity_manager]
+  doi.meta_generator:
+    class: OkulBilisim\OjsDoiBundle\Service\DoiMetaGenerator
+    arguments: [@doi.generator, @router]

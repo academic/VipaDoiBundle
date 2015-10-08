@@ -19,7 +19,8 @@ class CrossrefConfigType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('fullName')
-            ->add('email', 'email');
+            ->add('email', 'email')
+            ->add('prefix', 'text', array('attr' => array('help_text' => 'doi.prefix.helpText')));
     }
 
     /**

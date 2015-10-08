@@ -30,6 +30,21 @@ OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig:
       nullable: true
       gedmo:
         - versioned
+    prefix:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    issuePostFix:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
+    articlePostFix:
+      type: string
+      nullable: true
+      gedmo:
+        - versioned
     createdBy:
       type: string
       nullable: true

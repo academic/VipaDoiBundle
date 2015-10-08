@@ -20,7 +20,7 @@ class DoiController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $serializer = $serializer = $this->get('serializer');
-        $doiGenerator = new DoiMetaGenerator();
+        $doiGenerator = $this->get('doi.meta_generator');
 
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
@@ -56,7 +56,8 @@ class DoiController extends Controller
                     ]
                 ]
             );
-            $doi = json_decode($response->getBody()->getContents(), false);
+            $doi = json_decode($response->getBody()->getContents(), true);
+
             if(!empty($doi['message']['dois'][0])) {
                 $article->setDoi($doi['message']['dois'][0]);
             }

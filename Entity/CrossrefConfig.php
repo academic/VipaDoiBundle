@@ -37,6 +37,15 @@ class CrossrefConfig
      */
     protected $email;
 
+    /** @var string */
+    protected $prefix;
+
+    /** @var string */
+    protected $issuePostFix;
+
+    /** @var string */
+    protected $articlePostFix;
+
     /**
      * @return Journal
      */
@@ -128,6 +137,63 @@ class CrossrefConfig
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * @param string $prefix
+     * @return CrossrefConfig
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIssuePostFix()
+    {
+        return $this->issuePostFix;
+    }
+
+    /**
+     * @param string $issuePostFix
+     * @return CrossrefConfig
+     */
+    public function setIssuePostFix($issuePostFix)
+    {
+        $this->issuePostFix = $issuePostFix;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArticlePostFix()
+    {
+        return $this->articlePostFix;
+    }
+
+    /**
+     * @param string $articlePostFix
+     * @return CrossrefConfig
+     */
+    public function setArticlePostFix($articlePostFix)
+    {
+        $this->articlePostFix = $articlePostFix;
 
         return $this;
     }
