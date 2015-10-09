@@ -5,8 +5,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use OkulBilisim\OjsDoiBundle\Service\DoiMetaGenerator;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -58,7 +56,7 @@ class DoiController extends Controller
             );
             $doi = json_decode($response->getBody()->getContents(), true);
 
-            if(!empty($doi['message']['dois'][0])) {
+            if (!empty($doi['message']['dois'][0])) {
                 $article->setDoi($doi['message']['dois'][0]);
             }
             $em->persist($article);
@@ -67,14 +65,5 @@ class DoiController extends Controller
         } catch (ServerException $e) {
             $this->get('logger')->addError('doiFailed', array($e->getResponse()->getReasonPhrase(), $article->getId()));
         }
-
-
-    }
-
-    public function getPostAction(Request $request)
-    {
-
-        var_dump($request->getContent());
-        die('XXX');
     }
 }

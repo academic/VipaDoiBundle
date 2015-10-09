@@ -3,11 +3,10 @@
 namespace OkulBilisim\OjsDoiBundle\Service;
 
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\ArticleTranslation;
 use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
 use OkulBilisim\OjsDoiBundle\Object\DoiBatch;
 use OkulBilisim\OjsDoiBundle\Object\DoiData;
-use OkulBilisim\OjsDoiBundle\Object\Person;
+use OkulBilisim\OjsDoiBundle\Object\PersonName;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Router;
 
@@ -43,29 +42,26 @@ class DoiMetaGenerator
         $doi->head->doiBatchId = 'article_'.$article->getId().'_'.time();
         $doi->head->registrant = $accessor->getValue($article, 'journal.publisher.name');
         $doi->head->depositor->emailAddress = $crossrefConfig->getEmail();
-        $doi->head->depositor->name = $crossrefConfig->getFullName();
+        $doi->head->depositor->depositorName = $crossrefConfig->getFullName();
 
         $doi->body->journal->journalMetadata->fullTitle = $accessor->getValue($article, 'journal.title');
         $doi->body->journal->journalMetadata->issn->value = $accessor->getValue($article, 'journal.issn');
 
         $doi->body->journal->journalIssue->issue = $accessor->getValue($article, 'issue.id');
         $doi->body->journal->journalIssue->journalVolume->volume = $accessor->getValue($article, 'issue.volume');
-        $doi->body->journal->journalIssue->publicationDate->setDate($accessor->getValue($article, 'issue.datePublished'));
+        $doi->body->journal->journalIssue->publicationDate->setDate(
+            $accessor->getValue($article, 'issue.datePublished')
+        );
 
         $doi->body->journal->journalArticle->publicationDate->setDate($accessor->getValue($article, 'pubdate'));
         $doi->body->journal->journalArticle->language = $article->getPrimaryLanguage();
         $doi->body->journal->journalArticle->pages->firstPage = $article->getFirstPage();
         $doi->body->journal->journalArticle->pages->lastPage = $article->getLastPage();
+        $doi->body->journal->journalArticle->titles->add($article->getTitle());
 
-
-        /** @var ArticleTranslation[] $translations */
-        $translations = $article->getTranslations();
-        foreach ($translations as $translation) {
-            $doi->body->journal->journalArticle->titles->add($translation->getTitle());
-        }
         $k = 0;
         foreach ($article->getArticleAuthors() as $author) {
-            $person = new Person();
+            $person = new PersonName();
             if (0 === $k) {
                 $person->sequence = "first";
             }
@@ -78,8 +74,13 @@ class DoiMetaGenerator
         $doiData = new DoiData();
         $doiData->doi = $this->doiGenerator->generate($article);
 
-        $routeParams = array('article_id' => $article->getId(), 'slug' => $article->getJournal()->getSlug(), 'issue_id' => $article->getIssue()->getId());
-        $routeName = 'publisher_hosting_journal_issue_article';
+        $routeParams = array(
+            'publisher' => $article->getJournal()->getPublisher()->getSlug(),
+            'article_id' => $article->getId(),
+            'slug' => $article->getJournal()->getSlug(),
+            'issue_id' => $article->getIssue()->getId()
+        );
+        $routeName = 'ojs_article_page';
 
         $doiData->resource = $this->router->generate($routeName, $routeParams, Router::ABSOLUTE_URL);
         $doi->body->journal->journalArticle->doiData = $doiData;

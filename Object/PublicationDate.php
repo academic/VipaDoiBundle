@@ -15,14 +15,6 @@ class PublicationDate
      * @var string
      *
      */
-    public $year;
-
-    /**
-     *
-     * @JMS\XmlElement(cdata=false)
-     * @var string
-     *
-     */
     public $month;
 
     /**
@@ -32,6 +24,14 @@ class PublicationDate
      *
      */
     public $day;
+
+    /**
+     *
+     * @JMS\XmlElement(cdata=false)
+     * @var string
+     *
+     */
+    public $year;
 
     public function setDate(\DateTime $dateTime = null) {
         if(!$dateTime) {

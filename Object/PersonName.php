@@ -5,7 +5,7 @@ namespace OkulBilisim\OjsDoiBundle\Object;
 use JMS\Serializer\Annotation as JMS;
 
 
-class Person
+class PersonName
 {
     /**
      *

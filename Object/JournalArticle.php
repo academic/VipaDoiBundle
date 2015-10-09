@@ -27,8 +27,8 @@ class JournalArticle
     public $titles;
 
     /**
-     * @JMS\XmlList(inline = false, entry = "person")
-     * @var ArrayCollection|Person[]
+     * @JMS\XmlList(inline = false, entry = "person_name")
+     * @var ArrayCollection|PersonName[]
      */
     public $contributors;
 

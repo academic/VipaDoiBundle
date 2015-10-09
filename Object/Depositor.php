@@ -12,7 +12,7 @@ class Depositor
      * @var string
      *
      */
-    public $name;
+    public $depositorName;
 
     /**
      *
