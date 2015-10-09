@@ -46,6 +46,11 @@ class CrossrefConfig
     /** @var string */
     protected $articlePostFix;
 
+    protected $defaults = array(
+        'issue' => '%j.v%vi%i',
+        'article' => '%j.v%vi%i.%a',
+    );
+
     /**
      * @return Journal
      */
@@ -165,6 +170,9 @@ class CrossrefConfig
      */
     public function getIssuePostFix()
     {
+        if(!$this->articlePostFix) {
+            return $this->defaults['issue'];
+        }
         return $this->issuePostFix;
     }
 
@@ -184,6 +192,9 @@ class CrossrefConfig
      */
     public function getArticlePostFix()
     {
+        if(!$this->articlePostFix) {
+            return $this->defaults['article'];
+        }
         return $this->articlePostFix;
     }
 
