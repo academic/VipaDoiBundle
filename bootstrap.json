@@ -11,6 +11,9 @@
     "okulbilisim/ojs-doi-bundle": "dev-master"
   },
   "extra": {
-    "bundle-class": "OkulBilisim\\OjsDoiBundle\\OjsDoiBundle"
+    "bundle-class": "OkulBilisim\\OjsDoiBundle\\OjsDoiBundle",
+    "other-bundle-classes" : [
+      "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
+    ]
   }
 }
