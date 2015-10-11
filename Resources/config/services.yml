@@ -1,3 +1,5 @@
+
+
 services:
   doi.left_menu_listener:
     class: OkulBilisim\OjsDoiBundle\EventListener\LeftMenuListener
@@ -15,3 +17,7 @@ services:
   doi.meta_generator:
     class: OkulBilisim\OjsDoiBundle\Service\DoiMetaGenerator
     arguments: [@doi.generator, @router]
+  doi.consumer:
+      class: OkulBilisim\OjsDoiBundle\Consumer\DoiConsumer
+      arguments:
+        - @logger
