@@ -20,4 +20,5 @@ services:
   doi.consumer:
       class: OkulBilisim\OjsDoiBundle\Consumer\DoiConsumer
       arguments:
+        - @doctrine.orm.entity_manager
         - @logger

@@ -1,0 +1,42 @@
+OkulBilisim\OjsDoiBundle\Entity\DoiStatus:
+  type: entity
+  table: doi_doi_status
+  repositoryClass: OkulBilisim\OjsDoiBundle\Entity\DoiStatusRepository
+  lifecycleCallbacks: {  }
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    batchId:
+      type: string
+    status:
+      type: string
+      gedmo:
+        - versioned
+    description:
+      type: text
+      nullable: true
+      gedmo:
+        - versioned
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  manyToOne:
+    article:
+      targetEntity: Ojs\JournalBundle\Entity\Article
+      joinColumn:
+        name: article_id
+        referencedColumnName: id
+      cascade: ["all"]
+  gedmo:
+    loggable: true
