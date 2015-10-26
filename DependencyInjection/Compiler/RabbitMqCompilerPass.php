@@ -13,7 +13,7 @@ class RabbitMqCompilerPass implements CompilerPassInterface
         'connections' => array(
             'default' =>
                 array(
-                    'host' => 'localhost',
+                    'host' => 'rabbit.ojs',
                     'port' => 5672,
                     'user' => 'guest',
                     'password' => 'guest',
