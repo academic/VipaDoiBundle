@@ -2,6 +2,7 @@
 namespace OkulBilisim\OjsDoiBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
 use OkulBilisim\OjsDoiBundle\Form\Type\CrossrefConfigType;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class ConfigController extends Controller
         if (!$crossrefConfig) {
             $crossrefConfig = new CrossrefConfig();
         }
-        $form = $this->createEditForm($crossrefConfig);
+        $form = $this->createEditForm($crossrefConfig, $journal);
 
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
@@ -40,9 +41,10 @@ class ConfigController extends Controller
      * Creates a form to edit a Lang entity.
      *
      * @param  CrossrefConfig $entity The entity
+     * @param  Journal $journal
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(CrossrefConfig $entity)
+    private function createEditForm(CrossrefConfig $entity, Journal $journal)
     {
         $form = $this->createForm(
             new CrossrefConfigType(),
@@ -50,7 +52,7 @@ class ConfigController extends Controller
             [
                 'action' => $this->generateUrl(
                     'okul_bilisim_doi_config_update',
-                    ['journalId' => $entity->getJournal()->getId()]
+                    ['journalId' => $journal->getId()]
                 ),
                 'method' => 'PUT',
             ]
@@ -80,7 +82,7 @@ class ConfigController extends Controller
 
         $crossrefConfig->setJournal($journal);
 
-        $form = $this->createEditForm($crossrefConfig);
+        $form = $this->createEditForm($crossrefConfig, $journal);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em->persist($crossrefConfig);
