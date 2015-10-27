@@ -3,7 +3,6 @@ namespace OkulBilisim\OjsDoiBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use OkulBilisim\OjsDoiBundle\Service\DoiMetaGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -18,7 +17,7 @@ class GeneratorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $serializer = $serializer = $this->get('serializer');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $doiGenerator = new DoiMetaGenerator();
+        $doiGenerator = $this->get('doi.meta_generator');
 
         $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
 
