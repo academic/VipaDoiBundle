@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Service\JournalService;
+use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class DoiGenerator
@@ -28,36 +29,28 @@ class DoiGenerator
         $this->em = $em;
     }
 
-    public function generate($entity, $postFix = null) {
+    /**
+     * @param Article $entity
+     * @return string
+     */
+    public function generate(Article $entity) {
 
         $config = $this->em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array(
             'journal' => $this->journalService->getSelectedJournal()
         ));
-        if(!$postFix) {
-            $accessor = PropertyAccess::createPropertyAccessor();
-            $field = '';
-            $map = array();
-            if($entity instanceof Article) {
-                $field = $config->getArticlePostFix();
-                $map = array(
-                    '%j' => $accessor->getValue($entity, 'journal.id'),
-                    '%v' => $accessor->getValue($entity, 'issue.volume'),
-                    '%i' => $accessor->getValue($entity, 'issue.id'),
-                    '%Y' => $accessor->getValue($entity, 'issue.year'),
-                    '%a' => $accessor->getValue($entity, 'id'),
-                );
-            }
-            elseif($entity instanceof Issue) {
-                $field = $config->getIssuePostFix();
-                $map = array(
-                    '%j' => $accessor->getValue($entity, 'journal.id'),
-                    '%v' => $accessor->getValue($entity, 'volume'),
-                    '%i' => $accessor->getValue($entity, 'id'),
-                    '%Y' => $accessor->getValue($entity, 'year')
-                );
-            }
-            $postFix = str_replace(array_keys($map), array_values($map), $field);
+        $accessor = PropertyAccess::createPropertyAccessor();
+        $field = $config->getPostFix();
+        if(empty($field)) {
+            $field = (new CrossrefConfig())->getPostFix();
         }
+        $map = array(
+            '%j' => $accessor->getValue($entity, 'journal.id'),
+            '%v' => $accessor->getValue($entity, 'issue.volume'),
+            '%i' => $accessor->getValue($entity, 'issue.id'),
+            '%Y' => $accessor->getValue($entity, 'issue.year'),
+            '%a' => $accessor->getValue($entity, 'id'),
+        );
+        $postFix = str_replace(array_keys($map), array_values($map), $field);
 
         return $config->getPrefix().'/'.$postFix;
     }

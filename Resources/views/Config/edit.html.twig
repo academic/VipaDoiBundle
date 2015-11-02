@@ -13,7 +13,25 @@
     {% include '::flashbag.html.twig' %}
 
     <h1>{{ 'doi.config.title'|trans }}</h1>
-    {{ form(form) }}
+    {{ form_start(form) }}
+
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.fullName) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.prefix) }}
+
+    {{ form_row(form.postfix) }}
+    <ul>
+        {% for key, description in postfixMapping %}
+            <li><strong>{{ key }}</strong>: {{ description|trans }}</li>
+        {% endfor %}
+    </ul>
+
+
+
+
+    {{ form_end(form) }}
     <hr/>
 
     {{ getLogs(entity) }}

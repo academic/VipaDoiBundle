@@ -28,11 +28,21 @@ class ConfigController extends Controller
         }
         $form = $this->createEditForm($crossrefConfig, $journal);
 
+
+        $postfixMapping = array(
+            '%j' => 'doi.postfix.journal',
+            '%v' => 'doi.postfix.volume',
+            '%i' => 'doi.postfix.issue',
+            '%Y' => 'doi.postfix.year',
+            '%a' => 'doi.postfix.article',
+            '%p' => 'doi.postfix.page'
+        );
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
             [
                 'entity' => $crossrefConfig,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'postfixMapping' => $postfixMapping
             ]
         );
     }

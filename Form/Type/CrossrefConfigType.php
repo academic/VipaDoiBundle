@@ -2,6 +2,7 @@
 
 namespace OkulBilisim\OjsDoiBundle\Form\Type;
 
+use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,8 @@ class CrossrefConfigType extends AbstractType
             ->add('password')
             ->add('fullName')
             ->add('email', 'email')
-            ->add('prefix', 'text', array('attr' => array('help_text' => 'doi.prefix.helpText')));
+            ->add('prefix', 'text', array('attr' => array('help_text' => 'doi.prefix.helpText')))
+            ->add('postfix', 'text', array('required' => false, 'attr' => array('help_text' => 'doi.postfix.helpText', 'placeholder' => (new CrossrefConfig())->getPostfix())));
     }
 
     /**

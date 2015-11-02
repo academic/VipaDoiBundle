@@ -41,15 +41,7 @@ class CrossrefConfig
     protected $prefix;
 
     /** @var string */
-    protected $issuePostFix;
-
-    /** @var string */
-    protected $articlePostFix;
-
-    protected $defaults = array(
-        'issue' => '%j.v%vi%i',
-        'article' => '%j.v%vi%i.%a',
-    );
+    protected $postfix = '%j.v%vi%i.%a';
 
     /**
      * @return Journal
@@ -168,43 +160,18 @@ class CrossrefConfig
     /**
      * @return string
      */
-    public function getIssuePostFix()
+    public function getPostfix()
     {
-        if(!$this->articlePostFix) {
-            return $this->defaults['issue'];
-        }
-        return $this->issuePostFix;
+        return $this->postfix;
     }
 
     /**
-     * @param string $issuePostFix
+     * @param string $postfix
      * @return CrossrefConfig
      */
-    public function setIssuePostFix($issuePostFix)
+    public function setPostfix($postfix)
     {
-        $this->issuePostFix = $issuePostFix;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getArticlePostFix()
-    {
-        if(!$this->articlePostFix) {
-            return $this->defaults['article'];
-        }
-        return $this->articlePostFix;
-    }
-
-    /**
-     * @param string $articlePostFix
-     * @return CrossrefConfig
-     */
-    public function setArticlePostFix($articlePostFix)
-    {
-        $this->articlePostFix = $articlePostFix;
+        $this->postfix = $postfix;
 
         return $this;
     }
