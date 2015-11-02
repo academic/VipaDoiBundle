@@ -44,7 +44,7 @@ class DoiGenerator
             $field = (new CrossrefConfig())->getPostFix();
         }
         $map = array(
-            '%j' => $accessor->getValue($entity, 'journal.id'),
+            '%j' => $accessor->getValue($entity, 'journal.titleAbbr'),
             '%v' => $accessor->getValue($entity, 'issue.volume'),
             '%i' => $accessor->getValue($entity, 'issue.id'),
             '%Y' => $accessor->getValue($entity, 'issue.year'),
