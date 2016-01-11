@@ -4,7 +4,7 @@ namespace OkulBilisim\OjsDoiBundle\EventListener;
 
 use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Event\MenuEvent;
-use Ojs\JournalBundle\JournalEvents;
+use Ojs\JournalBundle\Event\MenuEvents;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -34,7 +34,7 @@ class LeftMenuListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            JournalEvents::LEFT_MENU_INITIALIZED => 'onLeftMenuInitialized',
+            MenuEvents::LEFT_MENU_INITIALIZED => 'onLeftMenuInitialized',
         );
     }
 

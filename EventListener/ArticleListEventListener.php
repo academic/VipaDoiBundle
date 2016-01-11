@@ -4,8 +4,8 @@ namespace OkulBilisim\OjsDoiBundle\EventListener;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\ListEvent;
-use Ojs\JournalBundle\JournalEvents;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -29,7 +29,7 @@ class ArticleListEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            JournalEvents::ARTICLE_LIST_INITIALIZED => 'onListInitialized',
+            ArticleEvents::LISTED => 'onListInitialized',
         );
     }
 
