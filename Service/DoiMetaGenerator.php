@@ -47,11 +47,13 @@ class DoiMetaGenerator
         $doi->body->journal->journalMetadata->fullTitle = $accessor->getValue($article, 'journal.title');
         $doi->body->journal->journalMetadata->issn->value = $accessor->getValue($article, 'journal.issn');
 
-        $doi->body->journal->journalIssue->issue = $accessor->getValue($article, 'issue.id');
-        $doi->body->journal->journalIssue->journalVolume->volume = $accessor->getValue($article, 'issue.volume');
-        $doi->body->journal->journalIssue->publicationDate->setDate(
-            $accessor->getValue($article, 'issue.datePublished')
-        );
+        if($article->getIssue()) {
+            $doi->body->journal->journalIssue->issue = $accessor->getValue($article, 'issue.id');
+            $doi->body->journal->journalIssue->journalVolume->volume = $accessor->getValue($article, 'issue.volume');
+            $doi->body->journal->journalIssue->publicationDate->setDate(
+                $accessor->getValue($article, 'issue.datePublished')
+            );
+        }
 
         $doi->body->journal->journalArticle->publicationDate->setDate($accessor->getValue($article, 'pubdate'));
         $doi->body->journal->journalArticle->language = $article->getPrimaryLanguage();
