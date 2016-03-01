@@ -5,6 +5,7 @@ namespace OkulBilisim\OjsDoiBundle\EventListener;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
+use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Service\JournalService;
@@ -12,16 +13,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ArticleListEventListener implements EventSubscriberInterface
 {
-    /** @var  JournalService */
+    /** @var JournalService */
     private $journalService;
+
+    /** @var ObjectManager */
+    private $em;
 
     /**
      * ArticleListEventListener constructor.
      * @param JournalService $journalService
+     * @param ObjectManager $em
      */
-    public function __construct(JournalService $journalService)
+    public function __construct(JournalService $journalService, ObjectManager $em)
     {
         $this->journalService = $journalService;
+        $this->em = $em;
     }
 
     /**
@@ -39,9 +45,12 @@ class ArticleListEventListener implements EventSubscriberInterface
      */
     public function onListInitialized(ListEvent $event)
     {
-
-
         $journal = $this->journalService->getSelectedJournal();
+        $crossrefConfig = $this->em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        if(!$crossrefConfig || !$crossrefConfig->isValid()) {
+            return;
+        }
+
         $grid = $event->getGrid();
         /** @var ActionsColumn $actionColumn */
         $actionColumn = $grid->getColumn("actions");

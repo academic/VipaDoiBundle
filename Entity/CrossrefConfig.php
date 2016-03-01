@@ -175,4 +175,11 @@ class CrossrefConfig
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isValid() {
+        return !empty($this->username) && !empty($this->password);
+    }
 }
