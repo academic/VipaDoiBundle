@@ -19,7 +19,7 @@ class ConfigController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        if (!$this->isGranted('EDIT', $journal)) {
+        if (!$this->isGranted('EDIT', $journal) || !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
@@ -82,7 +82,7 @@ class ConfigController extends Controller
         $em = $this->getDoctrine()->getManager();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        if (!$this->isGranted('EDIT', $journal)) {
+        if (!$this->isGranted('EDIT', $journal) || !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
@@ -98,12 +98,20 @@ class ConfigController extends Controller
             $em->persist($crossrefConfig);
             $em->flush();
         }
-
+        $postfixMapping = array(
+            '%j' => 'doi.postfix.journal',
+            '%v' => 'doi.postfix.volume',
+            '%i' => 'doi.postfix.issue',
+            '%Y' => 'doi.postfix.year',
+            '%a' => 'doi.postfix.article',
+            '%p' => 'doi.postfix.page'
+        );
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
             [
                 'entity' => $crossrefConfig,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'postfixMapping' => $postfixMapping
             ]
         );
     }
