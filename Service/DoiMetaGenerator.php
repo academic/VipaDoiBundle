@@ -79,10 +79,12 @@ class DoiMetaGenerator
         $routeParams = array(
             'publisher' => $article->getJournal()->getPublisher()->getSlug(),
             'article_id' => $article->getId(),
-            'slug' => $article->getJournal()->getSlug(),
-            'issue_id' => $article->getIssue()->getId()
+            'slug' => $article->getJournal()->getSlug()
         );
-        $routeName = 'ojs_article_page';
+        if($article->getIssue()) {
+            $routeParams['issue_id'] = $article->getIssue()->getId();
+        }
+        $routeName = $article->getIssue()?'ojs_article_page':'ojs_article_withoutIssue_page';
 
         $doiData->resource = $this->router->generate($routeName, $routeParams, Router::ABSOLUTE_URL);
         $doi->body->journal->journalArticle->doiData = $doiData;
