@@ -60,10 +60,7 @@ class ArticleListEventListener implements EventSubscriberInterface
 
         $rowAction->manipulateRender(
             function (RowAction $rowAction, Row $row) use ($journal) {
-                if (1 === $row->getField('status') && $row->getField('pubdate') >= new \DateTime(
-                        '2014-01-01'
-                    ) && '' !== $row->getField('issue.translations.title')
-                ) {
+                if ($row->getField('pubdate') >= new \DateTime('2014-01-01')) {
                     $rowAction->setAttributes(
                         [
                             'class' => 'btn btn-primary btn-xs',
