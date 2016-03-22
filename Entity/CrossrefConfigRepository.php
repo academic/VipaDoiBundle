@@ -1,6 +1,6 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Entity;
+namespace BulutYazilim\OjsDoiBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

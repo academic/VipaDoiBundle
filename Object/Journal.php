@@ -1,6 +1,6 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Object;
+namespace BulutYazilim\OjsDoiBundle\Object;
 
 use JMS\Serializer\Annotation as JMS;
 

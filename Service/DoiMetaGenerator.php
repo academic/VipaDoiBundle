@@ -1,12 +1,12 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Service;
+namespace BulutYazilim\OjsDoiBundle\Service;
 
 use Ojs\JournalBundle\Entity\Article;
-use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
-use OkulBilisim\OjsDoiBundle\Object\DoiBatch;
-use OkulBilisim\OjsDoiBundle\Object\DoiData;
-use OkulBilisim\OjsDoiBundle\Object\PersonName;
+use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use BulutYazilim\OjsDoiBundle\Object\DoiBatch;
+use BulutYazilim\OjsDoiBundle\Object\DoiData;
+use BulutYazilim\OjsDoiBundle\Object\PersonName;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Router;
 

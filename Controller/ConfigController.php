@@ -1,10 +1,10 @@
 <?php
-namespace OkulBilisim\OjsDoiBundle\Controller;
+namespace BulutYazilim\OjsDoiBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
-use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
-use OkulBilisim\OjsDoiBundle\Form\Type\CrossrefConfigType;
+use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use BulutYazilim\OjsDoiBundle\Form\Type\CrossrefConfigType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Form\Type;
+namespace BulutYazilim\OjsDoiBundle\Form\Type;
 
-use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
+use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +32,7 @@ class CrossrefConfigType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig'
+                'data_class' => 'BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig'
             )
         );
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Consumer;
+namespace BulutYazilim\OjsDoiBundle\Consumer;
 
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
@@ -11,14 +11,14 @@ use Psr\Log\LoggerInterface;
 
 class DoiConsumer implements ConsumerInterface
 {
-    /** @var  EntityManager */
+    /** @var EntityManager */
     private $em;
 
     /** @var LoggerInterface */
     private $logger;
 
     /**
-     * TcknConsumer constructor.
+     * DoiConsumer constructor.
      *
      * @param EntityManager $em
      * @param LoggerInterface $logger
