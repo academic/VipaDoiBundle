@@ -1,5 +1,3 @@
-
-
 services:
   doi.left_menu_listener:
     class: BulutYazilim\OjsDoiBundle\EventListener\LeftMenuListener

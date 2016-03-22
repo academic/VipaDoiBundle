@@ -4,11 +4,11 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@bitbucket.org:bulutyazilim/ojsdoibundle.git"
+      "url": "https://bitbucket.org/bulutyazilim/ojsdoibundle.git"
     }
   ],
   "require": {
-    "bulutyazilim/ojs-doi-bundle": "dev-master"
+    "bulutyazilim/ojs-doi-bundle": "~0.3"
   },
   "extra": {
     "bundle-class": "BulutYazilim\\OjsDoiBundle\\OjsDoiBundle",
