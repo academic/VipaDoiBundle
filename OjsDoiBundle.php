@@ -1,8 +1,8 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle;
+namespace BulutYazilim\OjsDoiBundle;
 
-use OkulBilisim\OjsDoiBundle\DependencyInjection\Compiler\RabbitMqCompilerPass;
+use BulutYazilim\OjsDoiBundle\DependencyInjection\Compiler\RabbitMqCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

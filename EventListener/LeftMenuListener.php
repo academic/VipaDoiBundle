@@ -1,6 +1,6 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\EventListener;
+namespace BulutYazilim\OjsDoiBundle\EventListener;
 
 use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Event\MenuEvent;

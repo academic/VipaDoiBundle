@@ -4,14 +4,14 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "git@bitbucket.org:okulbilisim/ojsdoibundle.git"
+      "url": "git@bitbucket.org:bulutyazilim/ojsdoibundle.git"
     }
   ],
   "require": {
-    "okulbilisim/ojs-doi-bundle": "dev-master"
+    "bulutyazilim/ojs-doi-bundle": "dev-master"
   },
   "extra": {
-    "bundle-class": "OkulBilisim\\OjsDoiBundle\\OjsDoiBundle",
+    "bundle-class": "BulutYazilim\\OjsDoiBundle\\OjsDoiBundle",
     "other-bundle-classes" : [
       "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
     ]

@@ -2,23 +2,23 @@
 
 services:
   doi.left_menu_listener:
-    class: OkulBilisim\OjsDoiBundle\EventListener\LeftMenuListener
+    class: BulutYazilim\OjsDoiBundle\EventListener\LeftMenuListener
     arguments: [@security.authorization_checker, @ojs.journal_service]
     tags:
       - { name: kernel.event_subscriber }
   doi.article_list_event_listener:
-    class: OkulBilisim\OjsDoiBundle\EventListener\ArticleListEventListener
+    class: BulutYazilim\OjsDoiBundle\EventListener\ArticleListEventListener
     arguments: [@ojs.journal_service, @doctrine.orm.entity_manager]
     tags:
       - { name: kernel.event_subscriber }
   doi.generator:
-    class: OkulBilisim\OjsDoiBundle\Service\DoiGenerator
+    class: BulutYazilim\OjsDoiBundle\Service\DoiGenerator
     arguments: [@ojs.journal_service, @doctrine.orm.entity_manager]
   doi.meta_generator:
-    class: OkulBilisim\OjsDoiBundle\Service\DoiMetaGenerator
+    class: BulutYazilim\OjsDoiBundle\Service\DoiMetaGenerator
     arguments: [@doi.generator, @router]
   doi.consumer:
-      class: OkulBilisim\OjsDoiBundle\Consumer\DoiConsumer
+      class: BulutYazilim\OjsDoiBundle\Consumer\DoiConsumer
       arguments:
         - @doctrine.orm.entity_manager
         - @logger

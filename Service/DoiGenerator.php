@@ -1,13 +1,12 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Service;
+namespace BulutYazilim\OjsDoiBundle\Service;
 
 
 use Doctrine\ORM\EntityManager;
 use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Service\JournalService;
-use OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig;
+use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class DoiGenerator

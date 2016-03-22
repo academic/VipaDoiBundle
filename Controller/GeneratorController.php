@@ -1,5 +1,5 @@
 <?php
-namespace OkulBilisim\OjsDoiBundle\Controller;
+namespace BulutYazilim\OjsDoiBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;

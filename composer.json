@@ -1,7 +1,7 @@
 {
-  "name" : "okulbilisim/ojs-doi-bundle",
+  "name" : "bulutyazilim/ojs-doi-bundle",
   "description" : "Doi bundle for OJS",
-  "type" : "symfony-bundle",
+  "type" : "ojs-bundle",
   "keywords" : [
     "doi bundle"
   ],
@@ -9,7 +9,7 @@
     "MIT"
   ],
   "require" : {
-    "php": ">=5.4.0",
+    "php": ">=5.5.9",
     "guzzlehttp/guzzle": "~6.0",
     "symfony/symfony": "~2.7",
     "twig/extensions": "1.2.*",
@@ -17,7 +17,7 @@
   },
   "autoload" : {
     "psr-4" : {
-      "OkulBilisim\\OjsDoiBundle\\" : ""
+      "BulutYazilim\\OjsDoiBundle\\" : ""
     }
   },
   "extra" : {

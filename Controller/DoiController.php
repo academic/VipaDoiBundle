@@ -1,11 +1,11 @@
 <?php
-namespace OkulBilisim\OjsDoiBundle\Controller;
+namespace BulutYazilim\OjsDoiBundle\Controller;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
-use OkulBilisim\OjsDoiBundle\Entity\DoiStatus;
+use BulutYazilim\OjsDoiBundle\Entity\DoiStatus;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

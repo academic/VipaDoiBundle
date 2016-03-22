@@ -1,6 +1,6 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Object;
+namespace BulutYazilim\OjsDoiBundle\Object;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;

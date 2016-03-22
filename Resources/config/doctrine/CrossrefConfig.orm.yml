@@ -1,7 +1,7 @@
-OkulBilisim\OjsDoiBundle\Entity\CrossrefConfig:
+BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig:
   type: entity
   table: doi_crossref_config
-  repositoryClass: OkulBilisim\OjsDoiBundle\Entity\CrossrefConfigRepository
+  repositoryClass: BulutYazilim\OjsDoiBundle\Entity\CrossrefConfigRepository
   lifecycleCallbacks: {  }
   id:
     id:

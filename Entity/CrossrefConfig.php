@@ -1,6 +1,6 @@
 <?php
 
-namespace OkulBilisim\OjsDoiBundle\Entity;
+namespace BulutYazilim\OjsDoiBundle\Entity;
 
 use Ojs\CoreBundle\Entity\BlameableTrait;
 use Ojs\CoreBundle\Entity\TimestampableTrait;
