@@ -56,7 +56,7 @@ class ArticleListEventListener implements EventSubscriberInterface
         $actionColumn = $grid->getColumn("actions");
         $rowActions = $actionColumn->getRowActions();
 
-        $rowAction = new RowAction('<i class="fa fa-copyright"></i>', 'okul_bilisim_doi_doi_article_doi');
+        $rowAction = new RowAction('<i class="fa fa-copyright"></i>', 'bulut_yazilim_doi_doi_article_doi');
 
         $rowAction->manipulateRender(
             function (RowAction $rowAction, Row $row) use ($journal) {

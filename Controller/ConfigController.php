@@ -1,4 +1,5 @@
 <?php
+
 namespace BulutYazilim\OjsDoiBundle\Controller;
 
 use Ojs\CoreBundle\Controller\OjsController as Controller;
@@ -61,7 +62,7 @@ class ConfigController extends Controller
             $entity,
             [
                 'action' => $this->generateUrl(
-                    'okul_bilisim_doi_config_update',
+                    'bulut_yazilim_doi_config_update',
                     ['journalId' => $journal->getId()]
                 ),
                 'method' => 'PUT',

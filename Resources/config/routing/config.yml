@@ -1,9 +1,9 @@
-okul_bilisim_doi_config_update:
+bulut_yazilim_doi_config_update:
   path:     /{journalId}/doi-config
   defaults: { _controller: "OjsDoiBundle:Config:update" }
   methods: [PUT]
 
-okul_bilisim_doi_config_edit:
+bulut_yazilim_doi_config_edit:
   path:     /{journalId}/doi-config
   defaults: { _controller: "OjsDoiBundle:Config:edit" }
   methods: [GET]

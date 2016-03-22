@@ -1,4 +1,4 @@
-okul_bilisim_doi_generator_article:
+bulut_yazilim_doi_generator_article:
   path:     /{journalId}/article/{id}/doi
   defaults: { _controller: "OjsDoiBundle:Generator:articleDoi" }
   methods: [GET]

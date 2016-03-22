@@ -42,6 +42,6 @@ class CrossrefConfigType extends AbstractType
      */
     public function getName()
     {
-        return 'okul_bilisim_doi_bundle_config';
+        return 'bulut_yazilim_doi_bundle_config';
     }
 }

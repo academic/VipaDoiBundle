@@ -1,4 +1,4 @@
-okul_bilisim_doi_doi_article_doi:
+bulut_yazilim_doi_doi_article_doi:
   path:     /journal/{journalId}/article/{id}/doi-send
   defaults: { _controller: "OjsDoiBundle:Doi:getArticleDoi" }
   methods: [GET]
