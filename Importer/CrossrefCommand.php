@@ -6,6 +6,7 @@ use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use Doctrine\DBAL\Connection;
 use Ojs\ImportBundle\Helper\ImportCommand;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalContact;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -62,12 +63,26 @@ class CrossrefCommand extends ImportCommand
             $journal = $this->em->find('OjsJournalBundle:Journal', $ids[$id]);
 
             if ($journal) {
+                $control = $this->em
+                    ->getRepository('OjsDoiBundle:CrossrefConfig')
+                    ->findOneBy(['journal' => $journal]);
+
+                if ($control) {
+                    continue;
+                }
+
                 $config = new CrossrefConfig();
                 $config->setJournal($journal);
                 $config->setPrefix($fields['doiPrefix']);
-                $config->setPostfix($fields['doiSuffix']);
+                $config->setPostfix($fields['doiArticleSuffixPattern']);
                 $config->setUsername($fields['crossrefUsername']);
                 $config->setPassword($fields['crossrefPassword']);
+
+                /** @var JournalContact $contact */
+                if ($contact = $journal->getJournalContacts()->first()) {
+                    $config->setFullName($contact->getFullName());
+                    $config->setEmail($contact->getEmail());
+                }
 
                 $this->em->persist($config);
                 $counter++;
