@@ -24,5 +24,10 @@ class OjsDoiExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+
+        $container
+            ->register('ojs.doi.crossref_command', 'BulutYazilim\OjsDoiBundle\Importer\CrossrefCommand')
+            ->addTag('console.command');
     }
 }
