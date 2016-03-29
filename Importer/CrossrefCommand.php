@@ -74,7 +74,7 @@ class CrossrefCommand extends ImportCommand
                 $config = new CrossrefConfig();
                 $config->setJournal($journal);
                 $config->setPrefix($fields['doiPrefix']);
-                $config->setPostfix($fields['doiArticleSuffixPattern']);
+                $config->setSuffix($fields['doiArticleSuffixPattern']);
                 $config->setUsername($fields['crossrefUsername']);
                 $config->setPassword($fields['crossrefPassword']);
 
