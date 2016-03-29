@@ -2,26 +2,51 @@
 
 namespace BulutYazilim\OjsDoiBundle\Entity;
 
-use Ojs\CoreBundle\Entity\TimestampableTrait;
-use Ojs\JournalBundle\Entity\Article;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ojs\JournalBundle\Entity\ArticleTrait;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="doi_doi_status")
+ * @Gedmo\Loggable
+ */
 class DoiStatus
 {
-    use TimestampableTrait;
+    use TimestampableEntity;
+    use ArticleTrait;
 
-    /** @var  integer */
+    /**
+     * @var integer
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
     protected $id;
 
-    /** @var  Article */
-    protected $article;
-
-    /** @var  string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     protected $batchId;
 
-    /** @var  string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Gedmo\Versioned()
+     */
     protected $status;
 
-    /** @var  string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned()
+     */
     protected $description;
 
     /**
@@ -30,25 +55,6 @@ class DoiStatus
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return Article
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
-
-    /**
-     * @param Article $article
-     * @return DoiStatus
-     */
-    public function setArticle(Article $article)
-    {
-        $this->article = $article;
-
-        return $this;
     }
 
     /**

@@ -2,64 +2,93 @@
 
 namespace BulutYazilim\OjsDoiBundle\Entity;
 
-use Ojs\CoreBundle\Entity\BlameableTrait;
-use Ojs\CoreBundle\Entity\TimestampableTrait;
-use Ojs\JournalBundle\Entity\Journal;
+use BulutYazilim\OjsDoiBundle\Validator\Constraints as DoiAssert;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Ojs\JournalBundle\Entity\JournalTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="doi_crossref_config")
+ * @DoiAssert\ValidCrossrefConfig()
+ * @Gedmo\Loggable
+ */
 class CrossrefConfig
 {
-    use BlameableTrait;
-    use TimestampableTrait;
+    use BlameableEntity;
+    use TimestampableEntity;
+    use JournalTrait;
 
-    /** @var integer */
+    /**
+     * @var integer
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
     protected $id;
 
-    /** @var  Journal */
-    protected $journal;
     /**
      * crossref api username
      * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Gedmo\Versioned()
      */
+
     protected $username;
     /**
      * crossref api password
      * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Gedmo\Versioned()
      */
     protected $password;
     /**
      * DOI depositor name
      * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned()
      */
     protected $fullName;
     /**
      * DOI depositor email
      * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned()
      */
     protected $email;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Gedmo\Versioned()
+     */
     protected $prefix;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\Versioned()
+     */
     protected $suffix = '%j.v%vi%i.%a';
 
     /**
-     * @return Journal
-     */
-    public function getJournal()
-    {
-        return $this->journal;
-    }
-
-    /**
-     * @param Journal $journal
      * @return CrossrefConfig
      */
-    public function setJournal($journal)
+    public function getId()
     {
-        $this->journal = $journal;
-
-        return $this;
+        return $this->id;
     }
 
     /**
@@ -179,7 +208,8 @@ class CrossrefConfig
     /**
      * @return bool
      */
-    public function isValid() {
+    public function isValid()
+    {
         return !empty($this->username) && !empty($this->password);
     }
 }
