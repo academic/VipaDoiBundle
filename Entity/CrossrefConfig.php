@@ -41,7 +41,7 @@ class CrossrefConfig
     protected $prefix;
 
     /** @var string */
-    protected $postfix = '%j.v%vi%i.%a';
+    protected $suffix = '%j.v%vi%i.%a';
 
     /**
      * @return Journal
@@ -160,18 +160,18 @@ class CrossrefConfig
     /**
      * @return string
      */
-    public function getPostfix()
+    public function getSuffix()
     {
-        return $this->postfix;
+        return $this->suffix;
     }
 
     /**
-     * @param string $postfix
+     * @param string $suffix
      * @return CrossrefConfig
      */
-    public function setPostfix($postfix)
+    public function setSuffix($suffix)
     {
-        $this->postfix = $postfix;
+        $this->suffix = $suffix;
 
         return $this;
     }

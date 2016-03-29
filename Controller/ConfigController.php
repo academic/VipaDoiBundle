@@ -30,20 +30,20 @@ class ConfigController extends Controller
         $form = $this->createEditForm($crossrefConfig, $journal);
 
 
-        $postfixMapping = array(
-            '%j' => 'doi.postfix.journal',
-            '%v' => 'doi.postfix.volume',
-            '%i' => 'doi.postfix.issue',
-            '%Y' => 'doi.postfix.year',
-            '%a' => 'doi.postfix.article',
-            '%p' => 'doi.postfix.page'
+        $suffixMapping = array(
+            '%j' => 'doi.suffix.journal',
+            '%v' => 'doi.suffix.volume',
+            '%i' => 'doi.suffix.issue',
+            '%Y' => 'doi.suffix.year',
+            '%a' => 'doi.suffix.article',
+            '%p' => 'doi.suffix.page'
         );
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
             [
                 'entity' => $crossrefConfig,
                 'form' => $form->createView(),
-                'postfixMapping' => $postfixMapping
+                'suffixMapping' => $suffixMapping
             ]
         );
     }
@@ -99,20 +99,20 @@ class ConfigController extends Controller
             $em->persist($crossrefConfig);
             $em->flush();
         }
-        $postfixMapping = array(
-            '%j' => 'doi.postfix.journal',
-            '%v' => 'doi.postfix.volume',
-            '%i' => 'doi.postfix.issue',
-            '%Y' => 'doi.postfix.year',
-            '%a' => 'doi.postfix.article',
-            '%p' => 'doi.postfix.page'
+        $suffixMapping = array(
+            '%j' => 'doi.suffix.journal',
+            '%v' => 'doi.suffix.volume',
+            '%i' => 'doi.suffix.issue',
+            '%Y' => 'doi.suffix.year',
+            '%a' => 'doi.suffix.article',
+            '%p' => 'doi.suffix.page'
         );
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
             [
                 'entity' => $crossrefConfig,
                 'form' => $form->createView(),
-                'postfixMapping' => $postfixMapping
+                'suffixMapping' => $suffixMapping
             ]
         );
     }

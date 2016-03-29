@@ -1,7 +1,6 @@
 BulutYazilim\OjsDoiBundle\Entity\DoiStatus:
   type: entity
   table: doi_doi_status
-  repositoryClass: BulutYazilim\OjsDoiBundle\Entity\DoiStatusRepository
   lifecycleCallbacks: {  }
   id:
     id:

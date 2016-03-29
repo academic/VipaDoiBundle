@@ -1,9 +1,9 @@
 doi.config.title: DOI Ayarları
 doi.prefix.helpText: Dergiye özel tahsis edilmiş DOI ön eki
-doi.postfix.helpText: 'Varsayılan için boş bırakın. Örneğin %j.v%vi%i.%a kodlaması 10.1234/35.v3i23.3456 gibi bir DOI oluşturur.'
-doi.postfix.journal: Dergi başlangıcı için
-doi.postfix.volume: Cilt numarası için
-doi.postfix.issue: Sayı numarası için
-doi.postfix.year: Yıl için
-doi.postfix.article: ADS makale kimliği için
-doi.postfix.page: Sayfa numarası için
+doi.suffix.helpText: 'Varsayılan için boş bırakın. Örneğin %j.v%vi%i.%a kodlaması 10.1234/35.v3i23.3456 gibi bir DOI oluşturur.'
+doi.suffix.journal: Dergi başlangıcı için
+doi.suffix.volume: Cilt numarası için
+doi.suffix.issue: Sayı numarası için
+doi.suffix.year: Yıl için
+doi.suffix.article: ADS makale kimliği için
+doi.suffix.page: Sayfa numarası için

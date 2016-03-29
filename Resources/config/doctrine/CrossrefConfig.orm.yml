@@ -1,7 +1,6 @@
 BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig:
   type: entity
   table: doi_crossref_config
-  repositoryClass: BulutYazilim\OjsDoiBundle\Entity\CrossrefConfigRepository
   lifecycleCallbacks: {  }
   id:
     id:
@@ -35,7 +34,7 @@ BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig:
       nullable: true
       gedmo:
         - versioned
-    postfix:
+    suffix:
       type: string
       nullable: true
       gedmo:

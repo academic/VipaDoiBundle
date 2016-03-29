@@ -21,9 +21,9 @@
     {{ form_row(form.email) }}
     {{ form_row(form.prefix) }}
 
-    {{ form_row(form.postfix) }}
+    {{ form_row(form.suffix) }}
     <ul>
-        {% for key, description in postfixMapping %}
+        {% for key, description in suffixMapping %}
             <li><strong>{{ key }}</strong>: {{ description|trans }}</li>
         {% endfor %}
     </ul>

@@ -38,9 +38,9 @@ class DoiGenerator
             'journal' => $this->journalService->getSelectedJournal()
         ));
         $accessor = PropertyAccess::createPropertyAccessor();
-        $field = $config->getPostFix();
+        $field = $config->getSuffix();
         if(empty($field)) {
-            $field = (new CrossrefConfig())->getPostFix();
+            $field = (new CrossrefConfig())->getSuffix();
         }
         $map = array(
             '%j' => $accessor->getValue($entity, 'journal.titleAbbr'),

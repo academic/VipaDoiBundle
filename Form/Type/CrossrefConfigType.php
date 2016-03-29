@@ -22,7 +22,7 @@ class CrossrefConfigType extends AbstractType
             ->add('fullName')
             ->add('email', 'email')
             ->add('prefix', 'text', array('attr' => array('help_text' => 'doi.prefix.helpText')))
-            ->add('postfix', 'text', array('required' => false, 'attr' => array('help_text' => 'doi.postfix.helpText', 'placeholder' => (new CrossrefConfig())->getPostfix())));
+            ->add('suffix', 'text', array('required' => false, 'attr' => array('help_text' => 'doi.suffix.helpText', 'placeholder' => (new CrossrefConfig())->getSuffix())));
     }
 
     /**
@@ -32,7 +32,7 @@ class CrossrefConfigType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig'
+                'data_class' => CrossrefConfig::class
             )
         );
     }
