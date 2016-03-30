@@ -58,6 +58,7 @@ class DoiEventListener implements EventSubscriberInterface
     {
         return array(
             TwigEvents::OJS_ARTICLE_SHOW_VIEW => 'onArticleShowView',
+            TwigEvents::OJS_ARTICLE_EDIT_VIEW => 'onArticleEditView',
         );
     }
 
@@ -66,11 +67,24 @@ class DoiEventListener implements EventSubscriberInterface
      */
     public function onArticleShowView(TwigEvent $event)
     {
+        return $this->generateGetDoiButton($event);
+    }
+
+    /**
+     * @param TwigEvent $event
+     */
+    public function onArticleEditView(TwigEvent $event)
+    {
+        return $this->generateGetDoiButton($event);
+    }
+
+    private function generateGetDoiButton(TwigEvent $event)
+    {
         $journal = $this->journalService->getSelectedJournal();
         $crossrefConfig = $this->em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
-        #$if(!$crossrefConfig || !$crossrefConfig->isValid()) {
-        #    return;
-        #}
+        if(!$crossrefConfig || !$crossrefConfig->isValid()) {
+            return;
+        }
         $entity = $event->getOptions()['entity'];
         $template = $this->twig->render('@OjsDoi/Article/get_doi_button.html.twig', [
             'entity'=> $entity,
