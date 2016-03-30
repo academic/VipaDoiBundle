@@ -4,6 +4,7 @@ namespace BulutYazilim\OjsDoiBundle\Controller;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use BulutYazilim\OjsDoiBundle\Entity\DoiStatus;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,6 +64,7 @@ class DoiController extends Controller
                 ->setBatchId($doi['message']['batch-id']);
             if (!empty($doi['message']['dois'][0])) {
                 $article->setDoi($doi['message']['dois'][0]);
+                $article->setDoiStatus(DoiStatuses::WAITING);
             }
             $em->persist($doiStatus);
             $em->persist($article);
