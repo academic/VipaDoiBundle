@@ -70,6 +70,9 @@ class CrossrefCommand extends ImportCommand
                 if ($control) {
                     continue;
                 }
+                if(!$fields['crossrefUsername'] || !$fields['crossrefUsername'] || !$fields['doiPrefix']){
+                    continue;
+                }
 
                 $config = new CrossrefConfig();
                 $config->setJournal($journal);
