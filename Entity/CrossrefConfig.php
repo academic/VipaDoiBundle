@@ -23,6 +23,20 @@ class CrossrefConfig
     use JournalTrait;
 
     /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $updatedAt;
+
+    /**
      * @var integer
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
