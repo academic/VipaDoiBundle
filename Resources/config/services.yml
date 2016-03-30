@@ -20,3 +20,8 @@ services:
       arguments:
         - @doctrine.orm.entity_manager
         - @logger
+  doi.doi_event_listener:
+    class: BulutYazilim\OjsDoiBundle\EventListener\DoiEventListener
+    arguments: ["@doctrine.orm.entity_manager", "@router", "@ojs.journal_service", "@security.token_storage", "@twig"]
+    tags:
+      - { name: kernel.event_subscriber }
