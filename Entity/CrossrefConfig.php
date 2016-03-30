@@ -6,6 +6,7 @@ use BulutYazilim\OjsDoiBundle\Validator\Constraints as DoiAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Ojs\JournalBundle\Entity\JournalTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,21 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CrossrefConfig
 {
     use BlameableEntity;
+    use TimestampableEntity;
     use JournalTrait;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    protected $updatedAt;
 
     /**
      * @var integer
@@ -223,41 +211,5 @@ class CrossrefConfig
     public function isValid()
     {
         return !empty($this->username) && !empty($this->password);
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
