@@ -42,11 +42,12 @@ class DoiGenerator
         if(empty($field)) {
             $field = (new CrossrefConfig())->getSuffix();
         }
+
         $map = array(
-            '%j' => $accessor->getValue($entity, 'journal.titleAbbr'),
-            '%v' => $accessor->getValue($entity, 'issue.volume'),
-            '%i' => $accessor->getValue($entity, 'issue.id'),
-            '%Y' => $accessor->getValue($entity, 'issue.year'),
+            '%j' => $entity->getSlug(),
+            '%v' => $entity->getIssue()?$entity->getIssue()->getVolume():null,
+            '%i' => $entity->getIssue()?$entity->getIssue()->getId():null,
+            '%Y' => $entity->getIssue()?$entity->getIssue()->getYear():null,
             '%a' => $accessor->getValue($entity, 'id'),
         );
         $postFix = str_replace(array_keys($map), array_values($map), $field);
