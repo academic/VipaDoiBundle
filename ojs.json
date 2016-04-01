@@ -8,12 +8,9 @@
     }
   ],
   "require": {
-    "bulutyazilim/ojs-doi-bundle": "~0.3"
+    "bulutyazilim/ojs-doi-bundle": "~0.4"
   },
   "extra": {
-    "bundle-class": "BulutYazilim\\OjsDoiBundle\\OjsDoiBundle",
-    "other-bundle-classes" : [
-      "OldSound\\RabbitMqBundle\\OldSoundRabbitMqBundle"
-    ]
+    "bundle-class": "BulutYazilim\\OjsDoiBundle\\OjsDoiBundle"
   }
 }

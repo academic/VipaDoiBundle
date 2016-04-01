@@ -1,17 +1,32 @@
 <?php
 namespace BulutYazilim\OjsDoiBundle\Controller;
 
+use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use BulutYazilim\OjsDoiBundle\Entity\DoiStatus;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
-use BulutYazilim\OjsDoiBundle\Entity\DoiStatus;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DoiController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function crossrefPingBackAction(Request $request)
+    {
+        $logger = $this->get('logger');
+        $logger->addAlert('pingback', [$request->query->all(), $request->request->all(), $request->getClientIps()]);
+
+        return new Response();
+    }
+
     /**
      * @param Article $article
      * @return Response
@@ -24,7 +39,7 @@ class DoiController extends Controller
 
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $em->getRepository(CrossrefConfig::class)->findOneBy(array('journal' => $journal));
 
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -38,8 +53,7 @@ class DoiController extends Controller
 
         $client = new Client(
             [
-                'base_uri' => 'https://api.crossref.org/'
-                ,
+                'base_uri' => 'https://api.crossref.org/',
                 'timeout' => 0,
                 'auth' => [$crossrefConfig->getUsername(), $crossrefConfig->getPassword()]
             ]
@@ -48,7 +62,9 @@ class DoiController extends Controller
 
             $response = $client->request(
                 'POST',
-                'deposits',
+                'deposits?pingback='.urlencode(
+                    $this->generateUrl('bulut_yazilim_doi_crossref_pingback', [], UrlGeneratorInterface::ABSOLUTE_URL)
+                ),
                 [
                     'body' => $data,
                     'headers' => [
@@ -69,7 +85,6 @@ class DoiController extends Controller
             $em->persist($doiStatus);
             $em->persist($article);
             $em->flush();
-            $this->get('old_sound_rabbit_mq.doi_status_producer')->publish(serialize([$doi['message']['batch-id'], $crossrefConfig->getUsername(), $crossrefConfig->getPassword()]));
 
         } catch (ServerException $e) {
             $this->get('logger')->addError('doiFailed', array($e->getResponse()->getReasonPhrase(), $article->getId()));
