@@ -11,7 +11,7 @@ services:
       - { name: kernel.event_subscriber }
   doi.generator:
     class: BulutYazilim\OjsDoiBundle\Service\DoiGenerator
-    arguments: [@ojs.journal_service, @doctrine.orm.entity_manager]
+    arguments: ["@doctrine.orm.entity_manager"]
   doi.meta_generator:
     class: BulutYazilim\OjsDoiBundle\Service\DoiMetaGenerator
     arguments: [@doi.generator, @router]
