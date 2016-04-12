@@ -10,7 +10,7 @@ use Ojs\JournalBundle\Entity\JournalContact;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CrossrefCommand extends ImportCommand
+class CrossrefImportCommand extends ImportCommand
 {
     protected function configure()
     {

@@ -2,7 +2,7 @@
 
 namespace BulutYazilim\OjsDoiBundle\DependencyInjection;
 
-use BulutYazilim\OjsDoiBundle\Importer\CrossrefCommand;
+use BulutYazilim\OjsDoiBundle\Importer\CrossrefImportCommand;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -25,7 +25,7 @@ class OjsDoiExtension extends Extension
         $bundles = $container->getParameter('kernel.bundles');
         if (array_key_exists('ImportBundle', $bundles)) {
             $container
-                ->register('ojs.doi.crossref_command', CrossrefCommand::class)
+                ->register('ojs.doi.crossref_import_command', CrossrefImportCommand::class)
                 ->addTag('console.command');
         }
     }
