@@ -2,10 +2,9 @@
 
 namespace BulutYazilim\OjsDoiBundle\Controller;
 
-use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Journal;
 use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use BulutYazilim\OjsDoiBundle\Form\Type\CrossrefConfigType;
+use Ojs\CoreBundle\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -27,7 +26,7 @@ class ConfigController extends Controller
         if (!$crossrefConfig) {
             $crossrefConfig = new CrossrefConfig();
         }
-        $form = $this->createEditForm($crossrefConfig, $journal);
+        $form = $this->createEditForm($crossrefConfig);
 
 
         $suffixMapping = array(
@@ -38,6 +37,7 @@ class ConfigController extends Controller
             '%a' => 'doi.suffix.article',
             '%p' => 'doi.suffix.page'
         );
+
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
             [
@@ -52,18 +52,16 @@ class ConfigController extends Controller
      * Creates a form to edit a Lang entity.
      *
      * @param  CrossrefConfig $entity The entity
-     * @param  Journal $journal
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(CrossrefConfig $entity, Journal $journal)
+    private function createEditForm(CrossrefConfig $entity)
     {
         $form = $this->createForm(
             new CrossrefConfigType(),
             $entity,
             [
                 'action' => $this->generateUrl(
-                    'bulut_yazilim_doi_config_update',
-                    ['journalId' => $journal->getId()]
+                    'bulut_yazilim_doi_config_update'
                 ),
                 'method' => 'PUT',
             ]
@@ -93,7 +91,7 @@ class ConfigController extends Controller
 
         $crossrefConfig->setJournal($journal);
 
-        $form = $this->createEditForm($crossrefConfig, $journal);
+        $form = $this->createEditForm($crossrefConfig);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em->persist($crossrefConfig);
@@ -107,6 +105,7 @@ class ConfigController extends Controller
             '%a' => 'doi.suffix.article',
             '%p' => 'doi.suffix.page'
         );
+
         return $this->render(
             'OjsDoiBundle:Config:edit.html.twig',
             [

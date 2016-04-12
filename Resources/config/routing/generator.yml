@@ -1,4 +1,9 @@
 bulut_yazilim_doi_generator_article:
-  path:     /{journalId}/article/{id}/doi
+  path:     /doi
   defaults: { _controller: "OjsDoiBundle:Generator:articleDoi" }
+  methods: [GET]
+
+bulut_yazilim_doi_doi_article_doi:
+  path:     /doi-send
+  defaults: { _controller: "OjsDoiBundle:Doi:getArticleDoi" }
   methods: [GET]

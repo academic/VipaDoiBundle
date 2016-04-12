@@ -39,7 +39,7 @@ class DoiController extends Controller
 
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
-        $crossrefConfig = $em->getRepository(CrossrefConfig::class)->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $em->getRepository(CrossrefConfig::class)->findOneBy([]);
 
         if (!$this->isGranted('EDIT', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");
@@ -90,6 +90,6 @@ class DoiController extends Controller
             $this->get('logger')->addError('doiFailed', array($e->getResponse()->getReasonPhrase(), $article->getId()));
         }
 
-        return $this->redirectToRoute('ojs_journal_article_index', array('journalId' => $journal->getId()));
+        return $this->redirectToRoute('ojs_journal_article_index');
     }
 }

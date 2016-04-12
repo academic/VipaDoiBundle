@@ -69,8 +69,6 @@ class ArticleListEventListener implements EventSubscriberInterface
                             'title' => 'Get DOI',
                         ]
                     );
-                    $rowAction->setRouteParameters(['id', 'journalId' => $journal->getId()]);
-
                     return $rowAction;
                 }
                 return null;

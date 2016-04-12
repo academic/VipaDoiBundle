@@ -1,9 +1,9 @@
 bulut_yazilim_doi_config_update:
-  path:     /{journalId}/doi-config
+  path:     /
   defaults: { _controller: "OjsDoiBundle:Config:update" }
   methods: [PUT]
 
 bulut_yazilim_doi_config_edit:
-  path:     /{journalId}/doi-config
+  path:     /
   defaults: { _controller: "OjsDoiBundle:Config:edit" }
   methods: [GET]

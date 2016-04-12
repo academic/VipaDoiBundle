@@ -1,11 +1,12 @@
 bulut_yazilim_doi_generator:
-  prefix:   /journal
+  prefix:   /journal/{journalId}/article/{id}
   resource: "@OjsDoiBundle/Resources/config/routing/generator.yml"
 
-bulut_yazilim_doi_doi:
-  prefix:   /
-  resource: "@OjsDoiBundle/Resources/config/routing/doi.yml"
-
 bulut_yazilim_doi_config:
-  prefix:   /journal
+  prefix:   /journal/{journalId}/doi-config
   resource: "@OjsDoiBundle/Resources/config/routing/config.yml"
+
+bulut_yazilim_doi_crossref_pingback:
+  path:     /crossref/pingback
+  defaults: { _controller: "OjsDoiBundle:Doi:crossrefPingBack" }
+  methods: [GET]

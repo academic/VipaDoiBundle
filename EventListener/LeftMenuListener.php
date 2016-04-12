@@ -44,15 +44,13 @@ class LeftMenuListener implements EventSubscriberInterface
     public function onLeftMenuInitialized(MenuEvent $menuEvent)
     {
         $journal = $this->journalService->getSelectedJournal();
-        $journalId = $journal->getId();
 
         $menuItem = $menuEvent->getMenuItem();
         if ($this->checker->isGranted('EDIT', $journal)) {
             $menuItem->addChild(
                 'doi.config.title',
                 [
-                    'route' => 'bulut_yazilim_doi_config_edit',
-                    'routeParameters' => ['journalId' => $journalId]
+                    'route' => 'bulut_yazilim_doi_config_edit'
                 ]
             );
         }
