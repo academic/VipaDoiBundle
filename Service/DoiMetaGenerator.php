@@ -45,7 +45,17 @@ class DoiMetaGenerator
         $doi->head->depositor->depositorName = $crossrefConfig->getFullName();
 
         $doi->body->journal->journalMetadata->fullTitle = $accessor->getValue($article, 'journal.title');
-        $doi->body->journal->journalMetadata->issn->value = $accessor->getValue($article, 'journal.issn');
+        if(!empty($accessor->getValue($article, 'journal.issn'))) {
+            $doi->body->journal->journalMetadata->issn->value = $accessor->getValue($article, 'journal.issn');
+        }
+        elseif(!empty($accessor->getValue($article, 'journal.eissn'))) {
+            $doi->body->journal->journalMetadata->issn->value = $accessor->getValue($article, 'journal.eissn');
+            $doi->body->journal->journalMetadata->issn->mediaType = 'electronic';
+        }
+        else {
+            $doi->body->journal->journalMetadata->issn = null;
+        }
+
 
         if($article->getIssue()) {
             $doi->body->journal->journalIssue->issue = $accessor->getValue($article, 'issue.id');
@@ -53,6 +63,9 @@ class DoiMetaGenerator
             $doi->body->journal->journalIssue->publicationDate->setDate(
                 $accessor->getValue($article, 'issue.datePublished')
             );
+        }
+        else {
+            $doi->body->journal->journalIssue = null;
         }
 
         $doi->body->journal->journalArticle->publicationDate->setDate($accessor->getValue($article, 'pubdate'));
