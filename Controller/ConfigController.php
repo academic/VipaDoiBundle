@@ -56,12 +56,14 @@ class ConfigController extends Controller
      */
     private function createEditForm(CrossrefConfig $entity)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(
             new CrossrefConfigType(),
             $entity,
             [
                 'action' => $this->generateUrl(
-                    'bulut_yazilim_doi_config_update'
+                    'bulut_yazilim_doi_config_update',
+                    ['journalId' => $journal->getId()]
                 ),
                 'method' => 'PUT',
             ]

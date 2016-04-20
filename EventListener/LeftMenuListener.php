@@ -50,7 +50,11 @@ class LeftMenuListener implements EventSubscriberInterface
             $menuItem->addChild(
                 'doi.config.title',
                 [
-                    'route' => 'bulut_yazilim_doi_config_edit'
+                    'route' => 'bulut_yazilim_doi_config_edit',
+                    'routeParameters' => [
+                        'journalId' => $journal->getId()
+                    ]
+
                 ]
             );
         }
