@@ -6,22 +6,26 @@ use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use BulutYazilim\OjsDoiBundle\Entity\DoiStatus;
 use GuzzleHttp\Client;
 use Ojs\CoreBundle\Params\DoiStatuses;
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Doctrine\ORM\EntityManager;
 
 class CrossrefCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        $this->setName('ojs:crossref:check')
+        $this
+            ->setName('ojs:crossref:check')
             ->setDescription('Crossref check')
-            ->setAliases(['crossref']);
+            ->setAliases(['crossref'])
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
+        /** @var EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $logger = $this->getContainer()->get('logger');
         $doiStatusRepo = $em->getRepository(DoiStatus::class);
@@ -45,13 +49,11 @@ class CrossrefCommand extends ContainerAwareCommand
             foreach ($doiStatuses as $doiStatus) {
                 $output->writeln($doiStatus->getBatchId());
 
-                /** @var \Ojs\JournalBundle\Entity\Article $article */
+                /** @var Article $article */
                 $article = $doiStatus->getArticle();
                 $config = $configRepo->findOneBy(['journal' => $article->getJournal()]);
 
                 try {
-
-
                     $client = new Client(
                         [
                             'base_uri' => 'https://api.crossref.org/'

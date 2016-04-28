@@ -35,7 +35,7 @@ class ConfigController extends Controller
             '%i' => 'doi.suffix.issue',
             '%Y' => 'doi.suffix.year',
             '%a' => 'doi.suffix.article',
-            '%p' => 'doi.suffix.page'
+            '%p' => 'doi.suffix.page',
         );
 
         return $this->render(

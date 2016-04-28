@@ -26,7 +26,8 @@ class CrossrefImportCommand extends ImportCommand
         $qb
             ->select('map.oldId, map.newId')
             ->from('ImportBundle:ImportMap', 'map')
-            ->where('map.type = :type');
+            ->where('map.type = :type')
+        ;
         $result = $qb->setParameter('type', Journal::class)->getQuery()->getArrayResult();
         $ids = [];
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace BulutYazilim\OjsDoiBundle\Controller;
 
 use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
