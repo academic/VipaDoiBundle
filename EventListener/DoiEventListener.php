@@ -88,6 +88,7 @@ class DoiEventListener implements EventSubscriberInterface
         $entity = $event->getOptions()['entity'];
         $template = $this->twig->render('@OjsDoi/Article/get_doi_button.html.twig', [
             'entity'=> $entity,
+            'journal' => $journal,
         ]);
         $event->setTemplate($template);
     }

@@ -59,6 +59,10 @@ class ArticleListEventListener implements EventSubscriberInterface
 
         $rowAction = new RowAction('DOI', 'bulut_yazilim_doi_doi_article_doi');
 
+        $rowAction->addRouteParameters([
+            'journalId' => $journal->getId(),
+            'id'
+        ]);
         $rowAction->manipulateRender(
             function (RowAction $rowAction, Row $row) use ($journal) {
                 if ($row->getField('pubdate') >= new \DateTime('2014-01-01') && $row->getField('doiStatus') !== DoiStatuses::VALID) {

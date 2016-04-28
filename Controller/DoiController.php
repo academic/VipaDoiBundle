@@ -91,6 +91,8 @@ class DoiController extends Controller
             $this->get('logger')->addError('doiFailed', array($e->getResponse()->getReasonPhrase(), $article->getId()));
         }
 
-        return $this->redirectToRoute('ojs_journal_article_index');
+        return $this->redirectToRoute('ojs_journal_article_index', [
+            'journalId' => $journal->getId(),
+        ]);
     }
 }
