@@ -12,10 +12,14 @@ use Symfony\Component\Routing\Router;
 
 class DoiMetaGenerator
 {
-    /** @var DoiGenerator */
+    /**
+     * @var DoiGenerator
+     */
     protected $doiGenerator;
 
-    /** @var Router */
+    /**
+     * @var Router
+     */
     protected $router;
 
     /**
@@ -26,7 +30,7 @@ class DoiMetaGenerator
     public function __construct(DoiGenerator $doiGenerator, Router $router)
     {
         $this->doiGenerator = $doiGenerator;
-        $this->router = $router;
+        $this->router       = $router;
     }
 
     /**
@@ -56,7 +60,6 @@ class DoiMetaGenerator
             $doi->body->journal->journalMetadata->issn = null;
         }
 
-
         if($article->getIssue()) {
             $doi->body->journal->journalIssue->issue = $accessor->getValue($article, 'issue.id');
             $doi->body->journal->journalIssue->journalVolume->volume = $accessor->getValue($article, 'issue.volume');
@@ -85,7 +88,6 @@ class DoiMetaGenerator
             $doi->body->journal->journalArticle->contributors->add($person);
             $k++;
         }
-
         $doiData = new DoiData();
         $doiData->doi = $this->doiGenerator->generate($article);
 
@@ -101,7 +103,6 @@ class DoiMetaGenerator
 
         $doiData->resource = $this->router->generate($routeName, $routeParams, Router::ABSOLUTE_URL);
         $doi->body->journal->journalArticle->doiData = $doiData;
-
 
         return $doi;
     }
