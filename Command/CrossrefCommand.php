@@ -69,7 +69,6 @@ class CrossrefCommand extends ContainerAwareCommand
                     continue;
                 }
 
-
                 $responseObject = json_decode($response->getBody()->getContents(), true);
 
                 $message = $responseObject['message'];
