@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Client;
 
 /**
  * Class ArticleDoiNormalizeCommand
