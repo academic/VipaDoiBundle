@@ -158,6 +158,8 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
                     $article->setDoi(null);
                     $article->setDoiStatus(DoiStatuses::NOT_AVAILABLE);
                 }
+                $this->em->persist($article);
+                continue;
             }
             //if article doi status is set as valid
             if($article->getStatus() == DoiStatuses::VALID){
