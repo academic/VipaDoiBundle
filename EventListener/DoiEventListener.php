@@ -4,6 +4,8 @@ namespace BulutYazilim\OjsDoiBundle\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\CoreBundle\Events\TwigEvent;
+use Ojs\CoreBundle\Params\DoiStatuses;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Service\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\CoreBundle\Event\WorkflowEvent;
@@ -16,20 +18,35 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class DoiEventListener implements EventSubscriberInterface
 {
-    /** @var  ObjectManager */
+    /**
+     * @var  ObjectManager
+     */
     private $em;
 
-    /** @var  RouterInterface */
+    /**
+     * @var  RouterInterface
+     */
     private $router;
 
-    /** @var  JournalService */
+    /**
+     * @var  JournalService
+     */
     private $journalService;
 
-    /** @var TokenStorageInterface */
+    /**
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
 
-    /** @var \Twig_Environment */
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
+
+    /**
+     * @var string
+     */
+    private $doiStartYear;
 
     /**
      * @param ObjectManager   $em
@@ -41,14 +58,16 @@ class DoiEventListener implements EventSubscriberInterface
         RouterInterface $router,
         JournalService $journalService,
         TokenStorageInterface $tokenStorage,
-        \Twig_Environment $twig
+        \Twig_Environment $twig,
+        $doiStartYear
     )
     {
-        $this->em = $em;
-        $this->router = $router;
-        $this->journalService = $journalService;
-        $this->tokenStorage = $tokenStorage;
-        $this->twig = $twig;
+        $this->em               = $em;
+        $this->router           = $router;
+        $this->journalService   = $journalService;
+        $this->tokenStorage     = $tokenStorage;
+        $this->twig             = $twig;
+        $this->doiStartYear     = $doiStartYear;
     }
 
     /**
@@ -85,7 +104,11 @@ class DoiEventListener implements EventSubscriberInterface
         if(!$crossrefConfig || !$crossrefConfig->isValid()) {
             return;
         }
+        /** @var Article $entity */
         $entity = $event->getOptions()['entity'];
+        if($entity->getDoiStatus() == DoiStatuses::VALID || $entity->getPubdate()->format('Y') < $this->doiStartYear ){
+            return;
+        }
         $template = $this->twig->render('@OjsDoi/Article/get_doi_button.html.twig', [
             'entity'=> $entity,
             'journal' => $journal,
