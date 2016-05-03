@@ -296,9 +296,11 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
     {
         try {
             $client = new Client();
-            $client->get('http://doi.org/api/handles/'.$data['doi']);
+            $client->get('http://doi.org/api/handles/'.$doi);
+            $this->io->writeln('valid doi ####> '.$doi);
             return true;
         } catch(\Exception $e) {
+            $this->io->writeln('invalid doi ----> '.$doi);
             return false;
         }
     }
