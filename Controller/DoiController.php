@@ -17,18 +17,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class DoiController extends Controller
 {
     /**
-     * @param Request $request
-     * @return Response
-     */
-    public function crossrefPingBackAction(Request $request)
-    {
-        $logger = $this->get('logger');
-        $logger->addAlert('pingback', [$request->query->all(), $request->request->all(), $request->getClientIps()]);
-
-        return new Response();
-    }
-
-    /**
      * @param Article $article
      * @return Response
      */
@@ -63,9 +51,7 @@ class DoiController extends Controller
 
             $response = $client->request(
                 'POST',
-                'deposits?pingback='.urlencode(
-                    $this->generateUrl('bulut_yazilim_doi_crossref_pingback', [], UrlGeneratorInterface::ABSOLUTE_URL)
-                ),
+                'deposits',
                 [
                     'body' => $data,
                     'headers' => [
@@ -81,7 +67,7 @@ class DoiController extends Controller
                 ->setBatchId($doi['message']['batch-id']);
             if (!empty($doi['message']['dois'][0])) {
                 $article->setDoi($doi['message']['dois'][0]);
-                $article->setDoiStatus(DoiStatuses::WAITING);
+                $article->setDoiStatus(DoiStatuses::REQUESTED);
             }
             $em->persist($doiStatus);
             $em->persist($article);
