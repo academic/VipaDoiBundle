@@ -26,6 +26,21 @@ use GuzzleHttp\Client;
 class ArticleDoiNormalizeCommand extends ContainerAwareCommand
 {
     /**
+     * @var int
+     */
+    private $batchSize;
+
+    /**
+     * @var int
+     */
+    private $offset;
+
+    /**
+     * @var null|int
+     */
+    private $limit;
+
+    /**
      * @var EntityManager
      */
     private $em;
@@ -84,6 +99,9 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
             ->setName('ojs:article:doi:normalize')
             ->addOption('validate', 'va', InputOption::VALUE_NONE, 'Validate Dois too')
             ->addOption('check-requests', 'cr', InputOption::VALUE_NONE, 'Checks requested dois are valid')
+            ->addOption('limit', null, InputOption::VALUE_REQUIRED, 'Set limit optionally defaults to 1000000', 1000000)
+            ->addOption('offset', null, InputOption::VALUE_REQUIRED, 'Set offset optionally defaults to 0', 0)
+            ->addOption('batch-size', null, InputOption::VALUE_REQUIRED, 'Set batch size optionally defaults to 100', 100)
             ->setDescription('Normalize articles doi and doi statuses.')
         ;
     }
@@ -98,7 +116,9 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
         $this->container                    = $this->getContainer();
         $this->em                           = $this->container->get('doctrine')->getManager();
         $this->translator                   = $this->container->get('translator');
-        $this->totalArticleCount            = $this->getTotalArticleCount();
+        $this->offset                       = $input->getOption('offset');
+        $this->batchSize                    = $input->getOption('batch-size');
+        $this->limit                        = $input->getOption('limit');
         $this->doiStartYear                 = $this->container->getParameter('doi_start_year');
         $this->validate                     = $input->getOption('validate');
         $this->checkRequests                = $input->getOption('check-requests');
@@ -115,25 +135,15 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->io->title($this->getDescription());
-        $this->io->progressStart($this->totalArticleCount);
-        foreach(range(0, $this->totalArticleCount, 100) as $number){
-            $fetchArticles = $this->em->getRepository('OjsJournalBundle:Article')->findBy([], null, 100, $number);
+        $this->io->progressStart($this->limit);
+        $this->io->newLine();
+        foreach(range($this->offset, $this->offset+$this->limit, $this->batchSize) as $number){
+            $fetchArticles = $this->em->getRepository('OjsJournalBundle:Article')->findBy([], ['id' => 'ASC'], $this->batchSize, $number);
             $this->normalizeDoiStatuses($fetchArticles);
-            $this->io->progressAdvance(100);
+            $this->io->progressAdvance($this->batchSize);
             $this->em->flush();
         }
-    }
-
-    /**
-     * @return int
-     */
-    private function getTotalArticleCount()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb->select('count(article.id)');
-        $qb->from('OjsJournalBundle:Article','article');
-
-        return $qb->getQuery()->getSingleScalarResult();
+        $this->io->success('Finished all normalize process');
     }
 
     /**
