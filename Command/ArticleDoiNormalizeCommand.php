@@ -61,11 +61,6 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
     private $translator;
 
     /**
-     * @var int
-     */
-    private $totalArticleCount;
-
-    /**
      * @var string
      */
     private $doiStartYear;
