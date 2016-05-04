@@ -14,6 +14,10 @@ use Doctrine\ORM\EntityManager;
 
 class CrossrefCommand extends ContainerAwareCommand
 {
+    /**
+     * @deprecated probably no need for this command, we have another normalizer
+     * and request checker commands
+     */
     protected function configure()
     {
         $this
