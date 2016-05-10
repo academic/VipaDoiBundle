@@ -80,9 +80,11 @@ class ArticleDoiRequestsCheckCommand extends ContainerAwareCommand
         foreach($fetchDoiRequestedArticles as $article){
             if($this->doiIsValid($article->getDoi())){
                 $article->setDoiStatus(DoiStatuses::VALID);
-                $this->em->persist($article);
+            }else{
+                $article->setLastDoiCheck((new \DateTime()));
             }
         }
+        $this->em->persist($article);
         $this->em->flush();
         $this->io->success('Finished all article doi requests check');
     }
