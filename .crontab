@@ -1,0 +1,2 @@
+# check doi requests
+* */12 * * * [PROJECT_PATH]/app/console ojs:article:doi:requests:check
