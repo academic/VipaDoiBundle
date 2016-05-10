@@ -68,6 +68,7 @@ class DoiController extends Controller
             if (!empty($doi['message']['dois'][0])) {
                 $article->setDoi($doi['message']['dois'][0]);
                 $article->setDoiStatus(DoiStatuses::REQUESTED);
+                $article->setDoiRequestTime(new \DateTime());
             }
             $em->persist($doiStatus);
             $em->persist($article);
