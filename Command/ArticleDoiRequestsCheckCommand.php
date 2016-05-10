@@ -81,6 +81,11 @@ class ArticleDoiRequestsCheckCommand extends ContainerAwareCommand
             if($this->doiIsValid($article->getDoi())){
                 $article->setDoiStatus(DoiStatuses::VALID);
                 $this->em->persist($article);
+            }else{
+                if(!$article->getDoiRequestTime() instanceof \DateTime){
+                    $article->setDoiRequestTime(new \DateTime());
+                    $this->em->persist($article);
+                }
             }
         }
         $this->em->flush();
