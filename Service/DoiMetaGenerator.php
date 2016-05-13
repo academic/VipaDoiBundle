@@ -46,7 +46,7 @@ class DoiMetaGenerator
         $doi->head->doiBatchId = 'article_'.$article->getId().'_'.time();
         $doi->head->registrant = $accessor->getValue($article, 'journal.publisher.name');
         $doi->head->depositor->emailAddress = $crossrefConfig->getEmail();
-        $doi->head->depositor->depositorName = $crossrefConfig->getFullName();
+        $doi->head->depositor->name = $crossrefConfig->getFullName();
 
         $doi->body->journal->journalMetadata->fullTitle = $accessor->getValue($article, 'journal.title');
         if(!empty($accessor->getValue($article, 'journal.issn'))) {
@@ -91,17 +91,7 @@ class DoiMetaGenerator
         $doiData = new DoiData();
         $doiData->doi = $this->doiGenerator->generate($article);
 
-        $routeParams = array(
-            'publisher' => $article->getJournal()->getPublisher()->getSlug(),
-            'article_id' => $article->getId(),
-            'slug' => $article->getJournal()->getSlug()
-        );
-        if($article->getIssue()) {
-            $routeParams['issue_id'] = $article->getIssue()->getId();
-        }
-        $routeName = $article->getIssue()?'ojs_article_page':'ojs_article_withoutIssue_page';
-
-        $doiData->resource = $this->router->generate($routeName, $routeParams, Router::ABSOLUTE_URL);
+        $doiData->resource = $this->router->generate('site_shortlink_doi', ['doi' => $doiData->doi], Router::ABSOLUTE_URL);
         $doi->body->journal->journalArticle->doiData = $doiData;
 
         return $doi;
