@@ -2,29 +2,41 @@
 
 namespace BulutYazilim\OjsDoiBundle\EventListener;
 
+use FOS\UserBundle\Model\UserInterface;
 use Ojs\CoreBundle\Acl\AuthorizationChecker;
 use Ojs\JournalBundle\Event\MenuEvent;
 use Ojs\JournalBundle\Event\MenuEvents;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class LeftMenuListener implements EventSubscriberInterface
 {
-    /** @var  AuthorizationChecker */
+    /**
+     * @var  AuthorizationChecker
+     */
     private $checker;
 
-    /** @var  JournalService */
+    /**
+     * @var  JournalService
+     */
     private $journalService;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
 
     /**
      * LeftMenuListener constructor.
      * @param AuthorizationChecker $checker
      * @param JournalService $journalService
      */
-    public function __construct(AuthorizationChecker $checker, JournalService $journalService)
+    public function __construct(AuthorizationChecker $checker, JournalService $journalService, TokenStorageInterface $tokenStorage)
     {
-        $this->checker = $checker;
-        $this->journalService = $journalService;
+        $this->checker          = $checker;
+        $this->journalService   = $journalService;
+        $this->tokenStorage     = $tokenStorage;
     }
 
 
@@ -44,20 +56,22 @@ class LeftMenuListener implements EventSubscriberInterface
     public function onLeftMenuInitialized(MenuEvent $menuEvent)
     {
         $journal = $this->journalService->getSelectedJournal();
+        $user = $this->tokenStorage->getToken()->getUser();
 
-        $menuItem = $menuEvent->getMenuItem();
-        if ($this->checker->isGranted('EDIT', $journal)) {
-            $menuItem->addChild(
-                'doi.config.title',
-                [
-                    'route' => 'bulut_yazilim_doi_config_edit',
-                    'routeParameters' => [
-                        'journalId' => $journal->getId()
-                    ]
-
-                ]
-            );
+        if($user === null || ($user instanceof UserInterface && !$user->isSuperAdmin())){
+            return;
         }
+        $menuItem = $menuEvent->getMenuItem();
+        $menuItem->addChild(
+            'doi.config.title',
+            [
+                'route' => 'bulut_yazilim_doi_config_edit',
+                'routeParameters' => [
+                    'journalId' => $journal->getId()
+                ]
+
+            ]
+        );
     }
 
 }

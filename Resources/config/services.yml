@@ -1,7 +1,7 @@
 services:
   doi.left_menu_listener:
     class: BulutYazilim\OjsDoiBundle\EventListener\LeftMenuListener
-    arguments: ["@security.authorization_checker", "@ojs.journal_service"]
+    arguments: ["@security.authorization_checker", "@ojs.journal_service", "@security.token_storage"]
     tags:
       - { name: kernel.event_subscriber }
   doi.article_list_event_listener:
