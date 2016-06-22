@@ -108,7 +108,7 @@ class DoiEventListener implements EventSubscriberInterface
         }
         /** @var Article $entity */
         $entity = $event->getOptions()['entity'];
-        if($entity->getDoiStatus() == DoiStatuses::VALID || $entity->getPubdate()->format('Y') < $this->doiStartYear ){
+        if($entity->getDoiStatus() == DoiStatuses::VALID || $entity->getPubdate() === null || $entity->getPubdate()->format('Y') < $this->doiStartYear ){
             return;
         }
         $template = $this->twig->render('@OjsDoi/Article/get_doi_button.html.twig', [
