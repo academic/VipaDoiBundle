@@ -5,7 +5,9 @@ namespace BulutYazilim\OjsDoiBundle\Service;
 
 use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
+use JMS\Serializer\Exception\LogicException;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class DoiGenerator
@@ -13,13 +15,17 @@ class DoiGenerator
     /** @var  EntityManager */
     protected $em;
 
+    /** @var  JournalService */
+    protected $journalService;
+
     /**
      * DoiGenerator constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, JournalService $journalService)
     {
-        $this->em = $em;
+        $this->em               = $em;
+        $this->journalService   = $journalService;
     }
 
     /**
@@ -28,10 +34,13 @@ class DoiGenerator
      */
     public function generate(Article $entity)
     {
-
+        $journal = $this->journalService->getSelectedJournal(false);
+        if(!$journal){
+            throw new LogicException('Selected journal not found from request');
+        }
         $config = $this->em->getRepository(CrossrefConfig::class)->findOneBy(
             array(
-                'journal' => $entity->getJournal()
+                'journal' => $journal
             )
         );
         $accessor = PropertyAccess::createPropertyAccessor();
@@ -42,7 +51,7 @@ class DoiGenerator
 
         $date = $entity->getPubdate() ? $entity->getPubdate() : new \DateTime();
         $map = array(
-            '%j' => $entity->getJournal()->getSlug(),
+            '%j' => $journal->getSlug(),
             '%v' => $entity->getIssue() ? $entity->getIssue()->getVolume() : null,
             '%i' => $entity->getIssue() ? $entity->getIssue()->getId() : null,
             '%Y' => $date->format('Y'),

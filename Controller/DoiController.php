@@ -35,7 +35,6 @@ class DoiController extends Controller
         }
         $this->throw404IfNotFound($crossrefConfig);
 
-
         $doi = $doiGenerator->getArticle($article, $crossrefConfig);
 
         $data = $serializer->serialize($doi, 'xml');
