@@ -17,6 +17,6 @@ services:
     arguments: ["@doi.generator", "@router"]
   doi.doi_event_listener:
     class: BulutYazilim\OjsDoiBundle\EventListener\DoiEventListener
-    arguments: ["@doctrine.orm.entity_manager", "@router", "@ojs.journal_service", "@security.token_storage", "@twig", "%doi_start_year%"]
+    arguments: ["@doctrine.orm.entity_manager", "@router", "@ojs.journal_service", "@security.token_storage", "@twig", "%doi_start_year%","@doi.generator"]
     tags:
       - { name: kernel.event_subscriber }

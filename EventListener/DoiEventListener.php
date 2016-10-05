@@ -2,12 +2,15 @@
 
 namespace BulutYazilim\OjsDoiBundle\EventListener;
 
+use BulutYazilim\OjsDoiBundle\Service\DoiGenerator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\CoreBundle\Events\TwigEvent;
+use Ojs\AdminBundle\Events\StatEvent;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Service\JournalService;
 use Ojs\CoreBundle\Events\TwigEvents;
+use Ojs\AdminBundle\Events\StatEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -45,9 +48,19 @@ class DoiEventListener implements EventSubscriberInterface
     private $doiStartYear;
 
     /**
-     * @param ObjectManager   $em
+     * @var  DoiGenerator
+     */
+    private $doiGenerator;
+
+    /**
+     * DoiEventListener constructor.
+     * @param ObjectManager $em
      * @param RouterInterface $router
-     * @param JournalService  $journalService
+     * @param JournalService $journalService
+     * @param TokenStorageInterface $tokenStorage
+     * @param \Twig_Environment $twig
+     * @param $doiStartYear
+     * @param DoiGenerator $doiGenerator
      */
     public function __construct(
         ObjectManager $em,
@@ -55,7 +68,8 @@ class DoiEventListener implements EventSubscriberInterface
         JournalService $journalService,
         TokenStorageInterface $tokenStorage,
         \Twig_Environment $twig,
-        $doiStartYear
+        $doiStartYear,
+        DoiGenerator $doiGenerator
     )
     {
         $this->em               = $em;
@@ -64,6 +78,7 @@ class DoiEventListener implements EventSubscriberInterface
         $this->tokenStorage     = $tokenStorage;
         $this->twig             = $twig;
         $this->doiStartYear     = $doiStartYear;
+        $this->doiGenerator     = $doiGenerator;
     }
 
     /**
@@ -72,8 +87,12 @@ class DoiEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            TwigEvents::OJS_ARTICLE_SHOW_VIEW => 'onArticleShowView',
-            TwigEvents::OJS_ARTICLE_EDIT_VIEW => 'onArticleEditView',
+            TwigEvents::OJS_ARTICLE_SHOW_VIEW       => 'onArticleShowView',
+            TwigEvents::OJS_ARTICLE_EDIT_VIEW       => 'onArticleEditView',
+            TwigEvents::OJS_ADMIN_STATS_DOI_TABS    => 'onAdminStatsDoiTabs',
+            TwigEvents::OJS_ADMIN_STATS_DOI_CONTENT => 'onAdminStatsDoiContent',
+            StatEvents::OJS_ADMIN_STATS_CACHE       => 'onAdminStatsCache',
+            TwigEvents::OJS_ADMIN_STATS_DOI_SCRIPT  => 'onAdminStatsDoiScript',
         );
     }
 
@@ -99,6 +118,64 @@ class DoiEventListener implements EventSubscriberInterface
      * @param TwigEvent $event
      * @return null
      */
+    public function onAdminStatsDoiTabs(TwigEvent $event)
+    {
+        $template = $this->twig->render('@OjsDoi/Admin/stats_tabs.html.twig');
+        $event->setTemplate($template);
+
+        return;
+    }
+    
+    /**
+     * @param TwigEvent $event
+     * @return null
+     */
+    public function onAdminStatsDoiContent(TwigEvent $event)
+    {
+
+        $template = $this->twig->render('@OjsDoi/Admin/stats_content.html.twig',[
+            'doiArticleMonthly' => $event->getOptions()['doi_article_monthly'],
+            'doiArticleYearly' => $event->getOptions()['doi_article_yearly'],
+        ]);
+        $event->setTemplate($template);
+
+        return;
+    }
+    
+    /**
+     * @param StatEvent $event
+     * @return null
+     */
+    public function onAdminStatsCache(StatEvent $event)
+    {
+        $json = $event->getJson();
+        $data = $event->getData();
+
+        $json['doiArticle'] = $this->doiGenerator->generateDoiArticleBarChartData();
+        $data['doiArticleMonthly'] = $this->doiGenerator->generateDoiArticleMonthlyData();
+        $data['doiArticleYearly'] = $this->doiGenerator->generateDoiArticleYearlyData();
+
+        $event->setJson($json);
+        $event->setData($data);
+
+        return;
+    }
+
+    /**
+     * @param TwigEvent $event
+     * @return null
+     */
+    public function onAdminStatsDoiScript(TwigEvent $event)
+    {
+        $event->setTemplate("analytics.createApplicationChart('#doiArticleChart', data['doiArticle']);");
+
+        return;
+    }
+    
+    /**
+     * @param TwigEvent $event
+     * @return null
+     */
     private function generateGetDoiButton(TwigEvent $event)
     {
         $journal = $this->journalService->getSelectedJournal();
@@ -119,4 +196,5 @@ class DoiEventListener implements EventSubscriberInterface
 
         return;
     }
+
 }
