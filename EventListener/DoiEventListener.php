@@ -89,10 +89,10 @@ class DoiEventListener implements EventSubscriberInterface
         return array(
             TwigEvents::OJS_ARTICLE_SHOW_VIEW       => 'onArticleShowView',
             TwigEvents::OJS_ARTICLE_EDIT_VIEW       => 'onArticleEditView',
-            //TwigEvents::OJS_ADMIN_STATS_DOI_TABS    => 'onAdminStatsDoiTabs',
-            //TwigEvents::OJS_ADMIN_STATS_DOI_CONTENT => 'onAdminStatsDoiContent',
-            //StatEvents::OJS_ADMIN_STATS_CACHE       => 'onAdminStatsCache',
-            //TwigEvents::OJS_ADMIN_STATS_DOI_SCRIPT  => 'onAdminStatsDoiScript',
+            TwigEvents::OJS_ADMIN_STATS_DOI_TABS    => 'onAdminStatsDoiTabs',
+            TwigEvents::OJS_ADMIN_STATS_DOI_CONTENT => 'onAdminStatsDoiContent',
+            StatEvents::OJS_ADMIN_STATS_CACHE       => 'onAdminStatsCache',
+            TwigEvents::OJS_ADMIN_STATS_DOI_SCRIPT  => 'onAdminStatsDoiScript',
         );
     }
 
