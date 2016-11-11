@@ -6,10 +6,12 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Event\Article\ArticleEvents;
 use Ojs\JournalBundle\Event\ListEvent;
 use Ojs\JournalBundle\Service\JournalService;
+use Ojs\JournalBundle\Validator\Constraints\ArticleStatus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ArticleListEventListener implements EventSubscriberInterface
@@ -65,7 +67,10 @@ class ArticleListEventListener implements EventSubscriberInterface
         ]);
         $rowAction->manipulateRender(
             function (RowAction $rowAction, Row $row) use ($journal) {
-                if ($row->getField('pubdate') >= new \DateTime('2014-01-01') && $row->getField('doiStatus') !== DoiStatuses::VALID) {
+                if (
+                    $row->getField('pubdate') >= new \DateTime('2014-01-01')
+                    && $row->getField('doiStatus') !== DoiStatuses::VALID
+                    && $row->getField('status') !== ArticleStatuses::STATUS_REJECTED) {
                     $rowAction->setAttributes(
                         [
                             'class' => 'btn btn-primary btn-xs',
