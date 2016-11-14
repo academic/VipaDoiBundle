@@ -6,6 +6,10 @@ bulut_yazilim_doi_config:
   prefix:   /journal/{journalId}/doi-config
   resource: "@OjsDoiBundle/Resources/config/routing/config.yml"
 
+bulut_yazilim_doi_stats_article:
+  prefix:   /admin/stats/doi-article
+  resource: "@OjsDoiBundle/Resources/config/routing/stats.yml"
+
 bulut_yazilim_doi_crossref_pingback:
   path:     /crossref/pingback
   defaults: { _controller: "OjsDoiBundle:Doi:crossrefPingBack" }

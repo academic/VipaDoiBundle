@@ -17,7 +17,7 @@
                 <tbody>
                 {% for doi in doiArticleMonthly %}
                     <tr>
-                        <td>{{ doi.month|slice(0,7) }}</td>
+                        <td>{{ doi.month|slice(0,7) }} <a href="{{ path('bulut_yazilim_doi_stats_article_detail', {year: doi.month|slice(0,4), month: doi.month|slice(5,2)}) }}">{{ "details"|trans }}</a></td>
                         <td>{{ doi.count }}</td>
                     </tr>
                 {% endfor %}
