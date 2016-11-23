@@ -7,6 +7,7 @@ use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use JMS\Serializer\Exception\LogicException;
+use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Service\JournalService;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -104,7 +105,7 @@ class DoiGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as count , strftime("%Y-%m", created) as month  FROM article WHERE doi IS NOT NULL GROUP BY month ORDER BY month DESC ';
         }else{
-            $sql = 'SELECT count(id) as count , date_trunc(\'month\', created) as month FROM article WHERE doi IS NOT NULL GROUP BY month ORDER BY month DESC';
+            $sql = 'SELECT count(id) as count , date_trunc(\'month\', doi_request_time) as month FROM article WHERE doi IS NOT NULL AND doistatus = '.DoiStatuses::VALID.' GROUP BY month ORDER BY month DESC';
         }
 
         $rsm = new ResultSetMapping();
