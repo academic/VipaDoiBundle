@@ -73,8 +73,12 @@ class DoiMetaGenerator
 
         $doi->body->journal->journalArticle->publicationDate->setDate($accessor->getValue($article, 'pubdate'));
         $doi->body->journal->journalArticle->language = $article->getPrimaryLanguage();
-        $doi->body->journal->journalArticle->pages->firstPage = $article->getFirstPage();
-        $doi->body->journal->journalArticle->pages->lastPage = $article->getLastPage();
+        if($article->getFirstPage()) {
+            $doi->body->journal->journalArticle->pages->firstPage = $article->getFirstPage();
+        }
+        if($article->getLastPage()){
+            $doi->body->journal->journalArticle->pages->lastPage = $article->getLastPage();
+        }
         $doi->body->journal->journalArticle->titles->add($article->getTitle());
 
         $k = 0;
