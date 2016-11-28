@@ -62,7 +62,14 @@ class DoiMetaGenerator
 
         if($article->getIssue()) {
             $doi->body->journal->journalIssue->issue = $accessor->getValue($article, 'issue.id');
-            $doi->body->journal->journalIssue->journalVolume->volume = $accessor->getValue($article, 'issue.volume');
+
+            if ($article->getIssue()->getVolume() != "") {
+                $volume = $accessor->getValue($article, 'issue.volume');
+                $doi->body->journal->journalIssue->journalVolume->volume = $volume;
+            } else {
+                $doi->body->journal->journalIssue->journalVolume = null;
+            }
+
             $doi->body->journal->journalIssue->publicationDate->setDate(
                 $accessor->getValue($article, 'issue.datePublished')
             );
