@@ -12,7 +12,10 @@ class JournalIssue
     /** @var  JournalVolume */
     public $journalVolume;
 
-    /** @var integer */
+    /**
+     * @var integer
+     * @JMS\XmlElement(cdata=false)
+     */
     public $issue;
 
     /** @var DoiData */
