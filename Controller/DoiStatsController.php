@@ -9,12 +9,17 @@ class DoiStatsController extends Controller
     public function doiDetailAction($year, $month)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $sql = 'SELECT id,doi,doi_request_time FROM article WHERE doi is not null AND doistatus = '.DoiStatuses::VALID.' AND EXTRACT(YEAR FROM doi_request_time) ='.$year;
+        
+        $sql =  'SELECT article.id, article.doi,article.doi_request_time FROM doi_doi_status';
+        $sql .= ' INNER JOIN article ON doi_doi_status.article_id = article.id';
+        $sql .= ' WHERE article.doi is not null AND article.doi_request_time is not null AND article.doistatus ='.DoiStatuses::VALID;
+        $sql .= ' AND EXTRACT(YEAR FROM article.doi_request_time) ='.$year;
 
         if (!empty($month)){
-            $sql .= 'AND EXTRACT(MONTH FROM doi_request_time) ='.$month;
+            $sql .= 'AND EXTRACT(MONTH FROM article.doi_request_time) ='.$month;
         }
+
+        $sql .= ' ORDER BY article.doi_request_time DESC';
 
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('id','id');

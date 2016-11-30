@@ -23,6 +23,7 @@ class DoiGenerator
     /**
      * DoiGenerator constructor.
      * @param EntityManager $em
+     * @param JournalService $journalService
      */
     public function __construct(EntityManager $em, JournalService $journalService)
     {
@@ -77,7 +78,10 @@ class DoiGenerator
         if ($connectionParams['driver'] == 'pdo_sqlite') {
             $sql = 'SELECT count(id) as count , strftime("%m-%Y", created) as month  FROM article WHERE doi IS NOT NULL GROUP BY month';
         }else{
-            $sql = 'SELECT count(id) as count , date_trunc(\'month\', created) as month FROM article WHERE doi IS NOT NULL GROUP BY month';
+            $sql =  'SELECT count(doi_doi_status.id) as count,date_trunc(\'month\', article.doi_request_time) as month FROM doi_doi_status';
+            $sql .= ' INNER JOIN article ON doi_doi_status.article_id = article.id';
+            $sql .= ' WHERE article.doi is not null AND article.doi_request_time is not null AND article.doistatus ='.DoiStatuses::VALID;
+            $sql .= ' GROUP BY month';
         }
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('count','count');
@@ -103,9 +107,12 @@ class DoiGenerator
         $connectionParams = $this->em->getConnection()->getParams();
 
         if ($connectionParams['driver'] == 'pdo_sqlite') {
-            $sql = 'SELECT count(id) as count , strftime("%Y-%m", created) as month  FROM article WHERE doi IS NOT NULL GROUP BY month ORDER BY month DESC ';
+            $sql = 'SELECT count(id) as count , strftime("%Y-%m", doi_request_time) as month  FROM article WHERE doi IS NOT NULL GROUP BY month ORDER BY month DESC ';
         }else{
-            $sql = 'SELECT count(id) as count , date_trunc(\'month\', doi_request_time) as month FROM article WHERE doi IS NOT NULL AND doistatus = '.DoiStatuses::VALID.' GROUP BY month ORDER BY month DESC';
+            $sql =  'SELECT count(doi_doi_status.id) as count,date_trunc(\'month\', article.doi_request_time) as month FROM doi_doi_status';
+            $sql .= ' INNER JOIN article ON doi_doi_status.article_id = article.id';
+            $sql .= ' WHERE article.doi is not null AND article.doi_request_time is not null AND article.doistatus ='.DoiStatuses::VALID;
+            $sql .= ' GROUP BY month ORDER BY month DESC';
         }
 
         $rsm = new ResultSetMapping();
@@ -126,9 +133,12 @@ class DoiGenerator
         $connectionParams = $this->em->getConnection()->getParams();
 
         if ($connectionParams['driver'] == 'pdo_sqlite') {
-            $sql = 'SELECT count(id) as count , strftime("%Y", created) as year FROM article WHERE doi IS NOT NULL GROUP BY year';
+            $sql = 'SELECT count(id) as count , strftime("%Y", doi_request_time) as year FROM article WHERE doi IS NOT NULL GROUP BY year';
         }else{
-            $sql = 'SELECT count(id) as count , date_trunc(\'year\', created) as year FROM article WHERE doi IS NOT NULL GROUP BY year';
+            $sql =  'SELECT count(doi_doi_status.id) as count,date_trunc(\'year\', article.doi_request_time) as year FROM doi_doi_status';
+            $sql .= ' INNER JOIN article ON doi_doi_status.article_id = article.id';
+            $sql .= ' WHERE article.doi is not null AND article.doi_request_time is not null AND article.doistatus ='.DoiStatuses::VALID;
+            $sql .= ' GROUP BY year ORDER BY year DESC';
         }
 
         $rsm = new ResultSetMapping();
