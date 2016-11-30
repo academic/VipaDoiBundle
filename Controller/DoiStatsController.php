@@ -32,4 +32,25 @@ class DoiStatsController extends Controller
             'results' => $results
         ]);
     }
+
+    public function journalDoiDetailAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $sql =  'SELECT journal.id, count(article.id) as count FROM doi_doi_status';
+        $sql .= ' INNER JOIN article ON doi_doi_status.article_id = article.id';
+        $sql .= ' INNER JOIN journal ON article.journal_id = journal.id';
+        $sql .= ' WHERE article.doi is not null AND article.doi_request_time is not null AND article.doistatus ='.DoiStatuses::VALID;
+        $sql .= ' GROUP BY journal.id';
+
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('id','id');
+        $rsm->addScalarResult('count','count');
+        $query = $em->createNativeQuery($sql, $rsm);
+        $results = $query->getResult();
+
+        return $this->render('OjsDoiBundle:Admin:journal_list.html.twig',[
+            'results' => $results
+        ]);
+    }
 }

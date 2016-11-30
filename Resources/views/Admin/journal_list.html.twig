@@ -1,0 +1,48 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft = true %}
+{% block title %}{{ "stats.doi"|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_admin_stats'), 'title': 'stats'|trans},
+    { 'title': "stats.doi"|trans }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .btn {
+            margin-bottom: 5px;
+        }
+        .btn-xs {
+            margin-bottom: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block body -%}
+    <div class="panel">
+        {% include '::flashbag.html.twig' %}
+        <hr>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>{{ "journal"|trans }}</th>
+                    <th>{{ "total"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    {% set journal = getJournal(result.id) %}
+                <tr>
+                    <td><a href="{{ path('ojs_journal_index', {slug: journal.slug}) }}" target="_blank">{{ journal.title }}</a></td>
+                    <td>{{ result.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
