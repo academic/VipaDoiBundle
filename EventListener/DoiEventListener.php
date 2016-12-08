@@ -2,12 +2,16 @@
 
 namespace BulutYazilim\OjsDoiBundle\EventListener;
 
+use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
 use BulutYazilim\OjsDoiBundle\Service\DoiGenerator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\AdminBundle\Events\StatEvent;
 use Ojs\CoreBundle\Params\DoiStatuses;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Event\JournalEvent;
+use Ojs\JournalBundle\Event\JournalItemEvent;
 use Ojs\JournalBundle\Service\JournalService;
 use Ojs\CoreBundle\Events\TwigEvents;
 use Ojs\AdminBundle\Events\StatEvents;
@@ -93,6 +97,8 @@ class DoiEventListener implements EventSubscriberInterface
             TwigEvents::OJS_ADMIN_STATS_DOI_CONTENT => 'onAdminStatsDoiContent',
             StatEvents::OJS_ADMIN_STATS_CACHE       => 'onAdminStatsCache',
             TwigEvents::OJS_ADMIN_STATS_DOI_SCRIPT  => 'onAdminStatsDoiScript',
+            'get.journal.crossref.config'           => 'onJournalCrossrefConfigRequest',
+            'generate.article.doi'                  => 'onArticleDoiGenerateRequest',
         );
     }
 
@@ -125,7 +131,7 @@ class DoiEventListener implements EventSubscriberInterface
 
         return;
     }
-    
+
     /**
      * @param TwigEvent $event
      * @return null
@@ -141,7 +147,7 @@ class DoiEventListener implements EventSubscriberInterface
 
         return;
     }
-    
+
     /**
      * @param StatEvent $event
      * @return null
@@ -171,7 +177,7 @@ class DoiEventListener implements EventSubscriberInterface
 
         return;
     }
-    
+
     /**
      * @param TwigEvent $event
      * @return null
@@ -197,4 +203,45 @@ class DoiEventListener implements EventSubscriberInterface
         return;
     }
 
+    /**
+     * @param JournalEvent $event
+     */
+    public function onJournalCrossrefConfigRequest(JournalEvent $event)
+    {
+        $journal = $event->getJournal();
+        if(!$journal instanceof Journal){
+            return;
+        }
+        $crossrefConfig = $this->em->getRepository(CrossrefConfig::class)->findOneBy([
+            'journal' => $journal
+        ]);
+        if(!$crossrefConfig || !$crossrefConfig->isValid()) {
+            return;
+        }
+        $crossrefConfigArray = [
+            'username' => $crossrefConfig->getUsername(),
+            'password' => $crossrefConfig->getPassword(),
+            'email' => $crossrefConfig->getEmail(),
+            'fullName' => $crossrefConfig->getFullName(),
+        ];
+        $journal->setExtraFields([
+            'crossrefConfig' => $crossrefConfigArray
+        ]);
+    }
+
+    /**
+     * @param JournalItemEvent $event
+     */
+    public function onArticleDoiGenerateRequest(JournalItemEvent $event)
+    {
+        $article = $event->getItem();
+        if(!$article instanceof Article){
+            return;
+        }
+        if(!empty($article->getDoi())){
+            return;
+        }
+        $doi = $this->doiGenerator->generate($article);
+        $article->setDoi($doi);
+    }
 }
