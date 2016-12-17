@@ -1,6 +1,6 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\EventListener;
+namespace Ojs\OjsDoiBundle\EventListener;
 
 use FOS\UserBundle\Model\UserInterface;
 use Ojs\CoreBundle\Acl\AuthorizationChecker;
