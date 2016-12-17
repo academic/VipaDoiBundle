@@ -1,6 +1,6 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Validator\Constraints;
+namespace Ojs\OjsDoiBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

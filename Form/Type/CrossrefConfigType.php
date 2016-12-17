@@ -1,8 +1,8 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Form\Type;
+namespace Ojs\OjsDoiBundle\Form\Type;
 
-use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use Ojs\OjsDoiBundle\Entity\CrossrefConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

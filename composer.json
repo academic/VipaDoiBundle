@@ -1,5 +1,5 @@
 {
-  "name" : "bulutyazilim/ojs-doi-bundle",
+  "name" : "ojs/ojs-doi-bundle",
   "description" : "Doi bundle for OJS",
   "type" : "ojs-bundle",
   "keywords" : [
@@ -16,7 +16,7 @@
   },
   "autoload" : {
     "psr-4" : {
-      "BulutYazilim\\OjsDoiBundle\\" : ""
+      "Ojs\\OjsDoiBundle\\" : ""
     }
   },
   "extra" : {

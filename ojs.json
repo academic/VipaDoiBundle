@@ -8,9 +8,9 @@
     }
   ],
   "require": {
-    "bulutyazilim/ojs-doi-bundle": "~0.4"
+    "ojs/ojs-doi-bundle": "~0.4"
   },
   "extra": {
-    "bundle-class": "BulutYazilim\\OjsDoiBundle\\OjsDoiBundle"
+    "bundle-class": "Ojs\\OjsDoiBundle\\OjsDoiBundle"
   }
 }

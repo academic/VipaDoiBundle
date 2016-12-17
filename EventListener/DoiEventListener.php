@@ -1,9 +1,9 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\EventListener;
+namespace Ojs\OjsDoiBundle\EventListener;
 
-use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
-use BulutYazilim\OjsDoiBundle\Service\DoiGenerator;
+use Ojs\OjsDoiBundle\Entity\CrossrefConfig;
+use Ojs\OjsDoiBundle\Service\DoiGenerator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojs\CoreBundle\Events\TwigEvent;
 use Ojs\AdminBundle\Events\StatEvent;
