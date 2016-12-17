@@ -1,6 +1,6 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Validator\Constraints;
+namespace Ojs\DoiBundle\Validator\Constraints;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class ValidCrossrefConfigValidator extends ConstraintValidator
 {
     /**
-     * @param \BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig $crossrefConfig
+     * @param \Ojs\DoiBundle\Entity\CrossrefConfig $crossrefConfig
      * @param Constraint $constraint
      */
     public function validate($crossrefConfig, Constraint $constraint)

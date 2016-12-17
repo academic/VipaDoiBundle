@@ -1,8 +1,8 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Entity;
+namespace Ojs\DoiBundle\Entity;
 
-use BulutYazilim\OjsDoiBundle\Validator\Constraints as DoiAssert;
+use Ojs\DoiBundle\Validator\Constraints as DoiAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;

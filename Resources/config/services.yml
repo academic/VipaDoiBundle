@@ -1,22 +1,22 @@
 services:
   doi.left_menu_listener:
-    class: BulutYazilim\OjsDoiBundle\EventListener\LeftMenuListener
+    class: Ojs\DoiBundle\EventListener\LeftMenuListener
     arguments: ["@security.authorization_checker", "@ojs.journal_service", "@security.token_storage"]
     tags:
       - { name: kernel.event_subscriber }
   doi.article_list_event_listener:
-    class: BulutYazilim\OjsDoiBundle\EventListener\ArticleListEventListener
+    class: Ojs\DoiBundle\EventListener\ArticleListEventListener
     arguments: ["@ojs.journal_service", "@doctrine.orm.entity_manager"]
     tags:
       - { name: kernel.event_subscriber }
   doi.generator:
-    class: BulutYazilim\OjsDoiBundle\Service\DoiGenerator
+    class: Ojs\DoiBundle\Service\DoiGenerator
     arguments: ["@doctrine.orm.entity_manager", "@ojs.journal_service"]
   doi.meta_generator:
-    class: BulutYazilim\OjsDoiBundle\Service\DoiMetaGenerator
+    class: Ojs\DoiBundle\Service\DoiMetaGenerator
     arguments: ["@doi.generator", "@router"]
   doi.doi_event_listener:
-    class: BulutYazilim\OjsDoiBundle\EventListener\DoiEventListener
+    class: Ojs\DoiBundle\EventListener\DoiEventListener
     arguments: ["@doctrine.orm.entity_manager", "@router", "@ojs.journal_service", "@security.token_storage", "@twig", "%doi_start_year%","@doi.generator"]
     tags:
       - { name: kernel.event_subscriber }

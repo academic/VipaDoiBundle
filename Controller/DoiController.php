@@ -1,9 +1,9 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Controller;
+namespace Ojs\DoiBundle\Controller;
 
-use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
-use BulutYazilim\OjsDoiBundle\Entity\DoiStatus;
+use Ojs\DoiBundle\Entity\CrossrefConfig;
+use Ojs\DoiBundle\Entity\DoiStatus;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use Ojs\CoreBundle\Controller\OjsController as Controller;

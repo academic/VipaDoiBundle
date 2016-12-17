@@ -1,8 +1,8 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\DependencyInjection;
+namespace Ojs\DoiBundle\DependencyInjection;
 
-use BulutYazilim\OjsDoiBundle\Importer\CrossrefImportCommand;
+use Ojs\DoiBundle\Importer\CrossrefImportCommand;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;

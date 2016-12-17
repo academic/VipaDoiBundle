@@ -1,6 +1,6 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle;
+namespace Ojs\DoiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

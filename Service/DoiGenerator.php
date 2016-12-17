@@ -1,9 +1,9 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Service;
+namespace Ojs\DoiBundle\Service;
 
 
-use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use Ojs\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use JMS\Serializer\Exception\LogicException;

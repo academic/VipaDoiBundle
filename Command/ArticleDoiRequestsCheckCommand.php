@@ -1,8 +1,8 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Command;
+namespace Ojs\DoiBundle\Command;
 
-use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use Ojs\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
 use Ojs\CoreBundle\Params\ArticleStatuses;
 use Ojs\CoreBundle\Params\DoiStatuses;
@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 /**
  * Class ArticleDoiRequestsCheckCommand
- * @package BulutYazilim\OjsDoiBundle\Command
+ * @package Ojs\DoiBundle\Command
  */
 class ArticleDoiRequestsCheckCommand extends ContainerAwareCommand
 {

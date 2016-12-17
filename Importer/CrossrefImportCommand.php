@@ -1,8 +1,8 @@
 <?php
 
-namespace BulutYazilim\OjsDoiBundle\Importer;
+namespace Ojs\DoiBundle\Importer;
 
-use BulutYazilim\OjsDoiBundle\Entity\CrossrefConfig;
+use Ojs\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\DBAL\Connection;
 use Ojs\ImportBundle\Helper\ImportCommand;
 use Ojs\JournalBundle\Entity\Journal;
