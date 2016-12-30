@@ -79,7 +79,9 @@ class DoiMetaGenerator
         }
 
         $doi->body->journal->journalArticle->publicationDate->setDate($accessor->getValue($article, 'pubdate'));
-        $doi->body->journal->journalArticle->language = strtolower($article->getPrimaryLanguage());
+        if($article->getPrimaryLanguage() !=null) {
+            $doi->body->journal->journalArticle->language = strtolower($article->getPrimaryLanguage());
+        }
 
         if ($article->getFirstPage() == null && $article->getLastPage() == null) {
             $doi->body->journal->journalArticle->pages = null;
