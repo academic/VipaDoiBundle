@@ -54,6 +54,7 @@ class CrossrefConfig
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank()
      * @Gedmo\Versioned()
      */
     protected $fullName;
