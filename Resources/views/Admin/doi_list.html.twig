@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ "stats.doi.monthly"|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_stats'), 'title': 'stats'|trans},
+    {'link': path('vipa_admin_stats'), 'title': 'stats'|trans},
     { 'title': "stats.doi.monthly"|trans }
     ] %}
     {{ breadcrumb(list) }}

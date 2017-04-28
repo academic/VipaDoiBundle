@@ -1,7 +1,7 @@
 {
-  "name" : "ojs/doi-bundle",
+  "name" : "vipa/doi-bundle",
   "description" : "DOI bundle for OJS",
-  "type" : "ojs-bundle",
+  "type" : "vipa-bundle",
   "keywords" : [
     "doi bundle"
   ],
@@ -16,7 +16,7 @@
   },
   "autoload" : {
     "psr-4" : {
-      "Ojs\\DoiBundle\\" : ""
+      "Vipa\\DoiBundle\\" : ""
     }
   },
   "extra" : {

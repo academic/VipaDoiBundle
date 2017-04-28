@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\DoiBundle\DependencyInjection;
+namespace Vipa\DoiBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('ojs_doi');
+        $treeBuilder->root('vipa_doi');
         return $treeBuilder;
     }
 }

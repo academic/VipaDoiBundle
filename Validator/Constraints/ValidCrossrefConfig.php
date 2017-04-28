@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\DoiBundle\Validator\Constraints;
+namespace Vipa\DoiBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

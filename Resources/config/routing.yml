@@ -1,21 +1,21 @@
 bulut_yazilim_doi_generator:
   prefix:   /journal/{journalId}/article/{id}
-  resource: "@OjsDoiBundle/Resources/config/routing/generator.yml"
+  resource: "@VipaDoiBundle/Resources/config/routing/generator.yml"
 
 bulut_yazilim_doi_config:
   prefix:   /journal/{journalId}/doi-config
-  resource: "@OjsDoiBundle/Resources/config/routing/config.yml"
+  resource: "@VipaDoiBundle/Resources/config/routing/config.yml"
 
 bulut_yazilim_doi_stats_article:
   prefix:   /admin/stats/doi-article
-  resource: "@OjsDoiBundle/Resources/config/routing/stats.yml"
+  resource: "@VipaDoiBundle/Resources/config/routing/stats.yml"
 
 bulut_yazilim_doi_stats_journal:
   path:     /admin/stats/doi-journal
-  defaults: { _controller: "OjsDoiBundle:DoiStats:journalDoiDetail"}
+  defaults: { _controller: "VipaDoiBundle:DoiStats:journalDoiDetail"}
   methods: [GET]
 
 bulut_yazilim_doi_crossref_pingback:
   path:     /crossref/pingback
-  defaults: { _controller: "OjsDoiBundle:Doi:crossrefPingBack" }
+  defaults: { _controller: "VipaDoiBundle:Doi:crossrefPingBack" }
   methods: [GET]

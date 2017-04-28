@@ -1,13 +1,13 @@
 <?php
 
-namespace Ojs\DoiBundle\Entity;
+namespace Vipa\DoiBundle\Entity;
 
-use Ojs\DoiBundle\Validator\Constraints as DoiAssert;
+use Vipa\DoiBundle\Validator\Constraints as DoiAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Ojs\JournalBundle\Entity\JournalTrait;
+use Vipa\JournalBundle\Entity\JournalTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

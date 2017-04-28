@@ -1,4 +1,4 @@
 bulut_yazilim_doi_stats_article_detail:
   path:     /detail/{year}/{month}
-  defaults: { _controller: "OjsDoiBundle:DoiStats:doiDetail", month: null}
+  defaults: { _controller: "VipaDoiBundle:DoiStats:doiDetail", month: null}
   methods: [GET]

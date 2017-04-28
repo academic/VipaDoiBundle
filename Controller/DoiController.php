@@ -1,14 +1,14 @@
 <?php
 
-namespace Ojs\DoiBundle\Controller;
+namespace Vipa\DoiBundle\Controller;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
-use Ojs\DoiBundle\Entity\DoiStatus;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Entity\DoiStatus;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
-use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\CoreBundle\Params\DoiStatuses;
-use Ojs\JournalBundle\Entity\Article;
+use Vipa\CoreBundle\Controller\VipaController as Controller;
+use Vipa\CoreBundle\Params\DoiStatuses;
+use Vipa\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -26,7 +26,7 @@ class DoiController extends Controller
         $serializer = $serializer = $this->get('serializer');
         $doiGenerator = $this->get('doi.meta_generator');
 
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journal = $this->get('vipa.journal_service')->getSelectedJournal();
 
         $crossrefConfig = $em->getRepository(CrossrefConfig::class)->findOneBy([]);
 
@@ -77,7 +77,7 @@ class DoiController extends Controller
             $this->get('logger')->addError('doiFailed', array($e->getResponse()->getReasonPhrase(), $article->getId()));
         }
 
-        return $this->redirectToRoute('ojs_journal_article_index', [
+        return $this->redirectToRoute('vipa_journal_article_index', [
             'journalId' => $journal->getId(),
         ]);
     }

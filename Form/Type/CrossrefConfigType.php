@@ -1,8 +1,8 @@
 <?php
 
-namespace Ojs\DoiBundle\Form\Type;
+namespace Vipa\DoiBundle\Form\Type;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

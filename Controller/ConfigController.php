@@ -1,10 +1,10 @@
 <?php
 
-namespace Ojs\DoiBundle\Controller;
+namespace Vipa\DoiBundle\Controller;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
-use Ojs\DoiBundle\Form\Type\CrossrefConfigType;
-use Ojs\CoreBundle\Controller\OjsController as Controller;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Form\Type\CrossrefConfigType;
+use Vipa\CoreBundle\Controller\VipaController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -17,12 +17,12 @@ class ConfigController extends Controller
     public function editAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journal = $this->get('vipa.journal_service')->getSelectedJournal();
 
         if (!$this->isGranted('EDIT', $journal) || !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
-        $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $em->getRepository('VipaDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
         if (!$crossrefConfig) {
             $crossrefConfig = new CrossrefConfig();
         }
@@ -39,7 +39,7 @@ class ConfigController extends Controller
         );
 
         return $this->render(
-            'OjsDoiBundle:Config:edit.html.twig',
+            'VipaDoiBundle:Config:edit.html.twig',
             [
                 'entity' => $crossrefConfig,
                 'form' => $form->createView(),
@@ -56,7 +56,7 @@ class ConfigController extends Controller
      */
     private function createEditForm(CrossrefConfig $entity)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journal = $this->get('vipa.journal_service')->getSelectedJournal();
         $form = $this->createForm(
             new CrossrefConfigType(),
             $entity,
@@ -81,12 +81,12 @@ class ConfigController extends Controller
     public function updateAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journal = $this->get('vipa.journal_service')->getSelectedJournal();
 
         if (!$this->isGranted('EDIT', $journal) || !$this->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
-        $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $em->getRepository('VipaDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
         if (!$crossrefConfig) {
             $crossrefConfig = new CrossrefConfig();
         }
@@ -109,7 +109,7 @@ class ConfigController extends Controller
         );
 
         return $this->render(
-            'OjsDoiBundle:Config:edit.html.twig',
+            'VipaDoiBundle:Config:edit.html.twig',
             [
                 'entity' => $crossrefConfig,
                 'form' => $form->createView(),

@@ -1,8 +1,8 @@
 <?php
-namespace Ojs\DoiBundle\Controller;
+namespace Vipa\DoiBundle\Controller;
 
-use Ojs\CoreBundle\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
+use Vipa\CoreBundle\Controller\VipaController as Controller;
+use Vipa\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -16,10 +16,10 @@ class GeneratorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $serializer = $serializer = $this->get('serializer');
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $journal = $this->get('vipa.journal_service')->getSelectedJournal();
         $doiGenerator = $this->get('doi.meta_generator');
 
-        $crossrefConfig = $em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $em->getRepository('VipaDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
 
         if (!$this->isGranted('VIEW', $journal, 'articles')) {
             throw new AccessDeniedException("You not authorized for this page!");

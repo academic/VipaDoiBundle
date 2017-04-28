@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\DoiBundle\Importer;
+namespace Vipa\DoiBundle\Importer;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\DBAL\Connection;
-use Ojs\ImportBundle\Helper\ImportCommand;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalContact;
+use Vipa\ImportBundle\Helper\ImportCommand;
+use Vipa\JournalBundle\Entity\Journal;
+use Vipa\JournalBundle\Entity\JournalContact;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -14,7 +14,7 @@ class CrossrefImportCommand extends ImportCommand
 {
     protected function configure()
     {
-        $this->setName('ojs:import:crossref');
+        $this->setName('vipa:import:crossref');
         parent::configure();
     }
 
@@ -61,11 +61,11 @@ class CrossrefImportCommand extends ImportCommand
         $counter = 0;
 
         foreach ($settings as $id => $fields) {
-            $journal = $this->em->find('OjsJournalBundle:Journal', $ids[$id]);
+            $journal = $this->em->find('VipaJournalBundle:Journal', $ids[$id]);
 
             if ($journal) {
                 $control = $this->em
-                    ->getRepository('OjsDoiBundle:CrossrefConfig')
+                    ->getRepository('VipaDoiBundle:CrossrefConfig')
                     ->findOneBy(['journal' => $journal]);
 
                 if ($control) {

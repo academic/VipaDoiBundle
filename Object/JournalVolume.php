@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\DoiBundle\Object;
+namespace Vipa\DoiBundle\Object;
 
 use JMS\Serializer\Annotation as JMS;
 

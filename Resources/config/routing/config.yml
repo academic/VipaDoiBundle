@@ -1,9 +1,9 @@
 bulut_yazilim_doi_config_update:
   path:     /
-  defaults: { _controller: "OjsDoiBundle:Config:update" }
+  defaults: { _controller: "VipaDoiBundle:Config:update" }
   methods: [PUT]
 
 bulut_yazilim_doi_config_edit:
   path:     /
-  defaults: { _controller: "OjsDoiBundle:Config:edit" }
+  defaults: { _controller: "VipaDoiBundle:Config:edit" }
   methods: [GET]

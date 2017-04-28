@@ -1,8 +1,8 @@
 <?php
 
-namespace Ojs\DoiBundle\DependencyInjection;
+namespace Vipa\DoiBundle\DependencyInjection;
 
-use Ojs\DoiBundle\Importer\CrossrefImportCommand;
+use Vipa\DoiBundle\Importer\CrossrefImportCommand;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class OjsDoiExtension extends Extension
+class VipaDoiExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class OjsDoiExtension extends Extension
         $bundles = $container->getParameter('kernel.bundles');
         if (array_key_exists('ImportBundle', $bundles)) {
             $container
-                ->register('ojs.doi.crossref_import_command', CrossrefImportCommand::class)
+                ->register('vipa.doi.crossref_import_command', CrossrefImportCommand::class)
                 ->addTag('console.command');
         }
     }

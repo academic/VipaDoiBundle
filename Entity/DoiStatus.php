@@ -1,11 +1,11 @@
 <?php
 
-namespace Ojs\DoiBundle\Entity;
+namespace Vipa\DoiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Ojs\JournalBundle\Entity\ArticleTrait;
+use Vipa\JournalBundle\Entity\ArticleTrait;
 
 /**
  * @ORM\Entity

@@ -1,13 +1,13 @@
 <?php
 
-namespace Ojs\DoiBundle\Command;
+namespace Vipa\DoiBundle\Command;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
-use Ojs\CoreBundle\Params\ArticleStatuses;
-use Ojs\CoreBundle\Params\DoiStatuses;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Journal;
+use Vipa\CoreBundle\Params\ArticleStatuses;
+use Vipa\CoreBundle\Params\DoiStatuses;
+use Vipa\JournalBundle\Entity\Article;
+use Vipa\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 /**
  * Class ArticleDoiRequestsCheckCommand
- * @package Ojs\DoiBundle\Command
+ * @package Vipa\DoiBundle\Command
  */
 class ArticleDoiRequestsCheckCommand extends ContainerAwareCommand
 {
@@ -46,7 +46,7 @@ class ArticleDoiRequestsCheckCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ojs:article:doi:requests:check')
+            ->setName('vipa:article:doi:requests:check')
             ->setDescription('Article doi requests check.')
         ;
     }
@@ -71,7 +71,7 @@ class ArticleDoiRequestsCheckCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->io->title($this->getDescription());
-        $fetchDoiRequestedArticles = $this->em->getRepository('OjsJournalBundle:Article')->findBy([
+        $fetchDoiRequestedArticles = $this->em->getRepository('VipaJournalBundle:Article')->findBy([
             'doiStatus' => DoiStatuses::REQUESTED
         ]);
         $this->io->progressStart(count($fetchDoiRequestedArticles));

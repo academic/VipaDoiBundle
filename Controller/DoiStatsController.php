@@ -1,8 +1,8 @@
 <?php
-namespace Ojs\DoiBundle\Controller;
-use Ojs\CoreBundle\Controller\OjsController as Controller;
+namespace Vipa\DoiBundle\Controller;
+use Vipa\CoreBundle\Controller\VipaController as Controller;
 use Doctrine\ORM\Query\ResultSetMapping;
-use Ojs\CoreBundle\Params\DoiStatuses;
+use Vipa\CoreBundle\Params\DoiStatuses;
 
 class DoiStatsController extends Controller
 {
@@ -28,7 +28,7 @@ class DoiStatsController extends Controller
         $query = $em->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
-        return $this->render('OjsDoiBundle:Admin:doi_list.html.twig',[
+        return $this->render('VipaDoiBundle:Admin:doi_list.html.twig',[
             'results' => $results
         ]);
     }
@@ -49,7 +49,7 @@ class DoiStatsController extends Controller
         $query = $em->createNativeQuery($sql, $rsm);
         $results = $query->getResult();
 
-        return $this->render('OjsDoiBundle:Admin:journal_list.html.twig',[
+        return $this->render('VipaDoiBundle:Admin:journal_list.html.twig',[
             'results' => $results
         ]);
     }

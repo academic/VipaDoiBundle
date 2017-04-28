@@ -1,9 +1,9 @@
 <?php
 
-namespace Ojs\DoiBundle;
+namespace Vipa\DoiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class OjsDoiBundle extends Bundle
+class VipaDoiBundle extends Bundle
 {
 }

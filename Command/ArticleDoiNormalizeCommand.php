@@ -1,13 +1,13 @@
 <?php
 
-namespace Ojs\DoiBundle\Command;
+namespace Vipa\DoiBundle\Command;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
-use Ojs\CoreBundle\Params\ArticleStatuses;
-use Ojs\CoreBundle\Params\DoiStatuses;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Journal;
+use Vipa\CoreBundle\Params\ArticleStatuses;
+use Vipa\CoreBundle\Params\DoiStatuses;
+use Vipa\JournalBundle\Entity\Article;
+use Vipa\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 
 /**
  * Class ArticleDoiNormalizeCommand
- * @package Ojs\DoiBundle\Command
+ * @package Vipa\DoiBundle\Command
  */
 class ArticleDoiNormalizeCommand extends ContainerAwareCommand
 {
@@ -91,7 +91,7 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('ojs:article:doi:normalize')
+            ->setName('vipa:article:doi:normalize')
             ->addOption('validate', 'va', InputOption::VALUE_NONE, 'Validate Dois too')
             ->addOption('check-requests', 'cr', InputOption::VALUE_NONE, 'Checks requested dois are valid')
             ->addOption('limit', null, InputOption::VALUE_REQUIRED, 'Set limit optionally defaults to 1000000', 1000000)
@@ -133,7 +133,7 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
         $this->io->progressStart($this->limit);
         $this->io->newLine();
         foreach(range($this->offset, $this->offset+$this->limit, $this->batchSize) as $number){
-            $fetchArticles = $this->em->getRepository('OjsJournalBundle:Article')->findBy([], ['id' => 'ASC'], $this->batchSize, $number);
+            $fetchArticles = $this->em->getRepository('VipaJournalBundle:Article')->findBy([], ['id' => 'ASC'], $this->batchSize, $number);
             $this->normalizeDoiStatuses($fetchArticles);
             $this->io->progressAdvance($this->batchSize);
             $this->em->flush();
@@ -265,7 +265,7 @@ class ArticleDoiNormalizeCommand extends ContainerAwareCommand
      */
     private function getCrossrefConfigs()
     {
-        return $this->em->getRepository('OjsDoiBundle:CrossrefConfig')->findAll();
+        return $this->em->getRepository('VipaDoiBundle:CrossrefConfig')->findAll();
     }
 
     /**

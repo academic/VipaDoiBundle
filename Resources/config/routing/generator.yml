@@ -1,9 +1,9 @@
 bulut_yazilim_doi_generator_article:
   path:     /doi
-  defaults: { _controller: "OjsDoiBundle:Generator:articleDoi" }
+  defaults: { _controller: "VipaDoiBundle:Generator:articleDoi" }
   methods: [GET]
 
 bulut_yazilim_doi_doi_article_doi:
   path:     /doi-send
-  defaults: { _controller: "OjsDoiBundle:Doi:getArticleDoi" }
+  defaults: { _controller: "VipaDoiBundle:Doi:getArticleDoi" }
   methods: [GET]

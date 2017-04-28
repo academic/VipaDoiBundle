@@ -1,2 +1,2 @@
 # check doi requests
-* */12 * * * [PROJECT_PATH]/app/console ojs:article:doi:requests:check
+* */12 * * * [PROJECT_PATH]/app/console vipa:article:doi:requests:check

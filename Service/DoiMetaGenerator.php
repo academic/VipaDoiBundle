@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojs\DoiBundle\Service;
+namespace Vipa\DoiBundle\Service;
 
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\DoiBundle\Entity\CrossrefConfig;
-use Ojs\DoiBundle\Object\DoiBatch;
-use Ojs\DoiBundle\Object\DoiData;
-use Ojs\DoiBundle\Object\PersonName;
+use Vipa\JournalBundle\Entity\Article;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Object\DoiBatch;
+use Vipa\DoiBundle\Object\DoiData;
+use Vipa\DoiBundle\Object\PersonName;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Router;
 

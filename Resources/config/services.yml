@@ -1,22 +1,22 @@
 services:
   doi.left_menu_listener:
-    class: Ojs\DoiBundle\EventListener\LeftMenuListener
-    arguments: ["@security.authorization_checker", "@ojs.journal_service", "@security.token_storage"]
+    class: Vipa\DoiBundle\EventListener\LeftMenuListener
+    arguments: ["@security.authorization_checker", "@vipa.journal_service", "@security.token_storage"]
     tags:
       - { name: kernel.event_subscriber }
   doi.article_list_event_listener:
-    class: Ojs\DoiBundle\EventListener\ArticleListEventListener
-    arguments: ["@ojs.journal_service", "@doctrine.orm.entity_manager"]
+    class: Vipa\DoiBundle\EventListener\ArticleListEventListener
+    arguments: ["@vipa.journal_service", "@doctrine.orm.entity_manager"]
     tags:
       - { name: kernel.event_subscriber }
   doi.generator:
-    class: Ojs\DoiBundle\Service\DoiGenerator
-    arguments: ["@doctrine.orm.entity_manager", "@ojs.journal_service"]
+    class: Vipa\DoiBundle\Service\DoiGenerator
+    arguments: ["@doctrine.orm.entity_manager", "@vipa.journal_service"]
   doi.meta_generator:
-    class: Ojs\DoiBundle\Service\DoiMetaGenerator
+    class: Vipa\DoiBundle\Service\DoiMetaGenerator
     arguments: ["@doi.generator", "@router"]
   doi.doi_event_listener:
-    class: Ojs\DoiBundle\EventListener\DoiEventListener
-    arguments: ["@doctrine.orm.entity_manager", "@router", "@ojs.journal_service", "@security.token_storage", "@twig", "%doi_start_year%","@doi.generator"]
+    class: Vipa\DoiBundle\EventListener\DoiEventListener
+    arguments: ["@doctrine.orm.entity_manager", "@router", "@vipa.journal_service", "@security.token_storage", "@twig", "%doi_start_year%","@doi.generator"]
     tags:
       - { name: kernel.event_subscriber }

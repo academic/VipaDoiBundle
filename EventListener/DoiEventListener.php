@@ -1,20 +1,20 @@
 <?php
 
-namespace Ojs\DoiBundle\EventListener;
+namespace Vipa\DoiBundle\EventListener;
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
-use Ojs\DoiBundle\Service\DoiGenerator;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Service\DoiGenerator;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\CoreBundle\Events\TwigEvent;
-use Ojs\AdminBundle\Events\StatEvent;
-use Ojs\CoreBundle\Params\DoiStatuses;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Event\JournalEvent;
-use Ojs\JournalBundle\Event\JournalItemEvent;
-use Ojs\JournalBundle\Service\JournalService;
-use Ojs\CoreBundle\Events\TwigEvents;
-use Ojs\AdminBundle\Events\StatEvents;
+use Vipa\CoreBundle\Events\TwigEvent;
+use Vipa\AdminBundle\Events\StatEvent;
+use Vipa\CoreBundle\Params\DoiStatuses;
+use Vipa\JournalBundle\Entity\Article;
+use Vipa\JournalBundle\Entity\Journal;
+use Vipa\JournalBundle\Event\JournalEvent;
+use Vipa\JournalBundle\Event\JournalItemEvent;
+use Vipa\JournalBundle\Service\JournalService;
+use Vipa\CoreBundle\Events\TwigEvents;
+use Vipa\AdminBundle\Events\StatEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -126,7 +126,7 @@ class DoiEventListener implements EventSubscriberInterface
      */
     public function onAdminStatsDoiTabs(TwigEvent $event)
     {
-        $template = $this->twig->render('@OjsDoi/Admin/stats_tabs.html.twig');
+        $template = $this->twig->render('@VipaDoi/Admin/stats_tabs.html.twig');
         $event->setTemplate($template);
 
         return;
@@ -139,7 +139,7 @@ class DoiEventListener implements EventSubscriberInterface
     public function onAdminStatsDoiContent(TwigEvent $event)
     {
 
-        $template = $this->twig->render('@OjsDoi/Admin/stats_content.html.twig',[
+        $template = $this->twig->render('@VipaDoi/Admin/stats_content.html.twig',[
             'doiArticleMonthly' => $event->getOptions()['doi_article_monthly'],
             'doiArticleYearly' => $event->getOptions()['doi_article_yearly'],
         ]);
@@ -185,7 +185,7 @@ class DoiEventListener implements EventSubscriberInterface
     private function generateGetDoiButton(TwigEvent $event)
     {
         $journal = $this->journalService->getSelectedJournal();
-        $crossrefConfig = $this->em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $this->em->getRepository('VipaDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
         if(!$crossrefConfig || !$crossrefConfig->isValid()) {
             return;
         }
@@ -194,7 +194,7 @@ class DoiEventListener implements EventSubscriberInterface
         if($entity->getDoiStatus() == DoiStatuses::VALID || $entity->getPubdate() === null || $entity->getPubdate()->format('Y') < $this->doiStartYear ){
             return;
         }
-        $template = $this->twig->render('@OjsDoi/Article/get_doi_button.html.twig', [
+        $template = $this->twig->render('@VipaDoi/Article/get_doi_button.html.twig', [
             'entity'=> $entity,
             'journal' => $journal,
         ]);

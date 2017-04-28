@@ -1,11 +1,11 @@
-{% extends '::ojsbase.html.twig' %}
+{% extends '::vipabase.html.twig' %}
 {% set hideleft = true %}
 {% block title %}{{ "stats.doi"|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('ojs_admin_stats'), 'title': 'stats'|trans},
+    {'link': path('vipa_admin_stats'), 'title': 'stats'|trans},
     { 'title': "stats.doi"|trans }
     ] %}
     {{ breadcrumb(list) }}
@@ -38,7 +38,7 @@
                 {% for result in results %}
                     {% set journal = getJournal(result.id) %}
                 <tr>
-                    <td><a href="{{ path('ojs_journal_index', {slug: journal.slug}) }}" target="_blank">{{ journal.title }}</a></td>
+                    <td><a href="{{ path('vipa_journal_index', {slug: journal.slug}) }}" target="_blank">{{ journal.title }}</a></td>
                     <td>{{ result.count }}</td>
                 </tr>
                 {% endfor %}

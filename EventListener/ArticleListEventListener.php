@@ -1,17 +1,17 @@
 <?php
 
-namespace Ojs\DoiBundle\EventListener;
+namespace Vipa\DoiBundle\EventListener;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojs\CoreBundle\Params\ArticleStatuses;
-use Ojs\CoreBundle\Params\DoiStatuses;
-use Ojs\JournalBundle\Event\Article\ArticleEvents;
-use Ojs\JournalBundle\Event\ListEvent;
-use Ojs\JournalBundle\Service\JournalService;
-use Ojs\JournalBundle\Validator\Constraints\ArticleStatus;
+use Vipa\CoreBundle\Params\ArticleStatuses;
+use Vipa\CoreBundle\Params\DoiStatuses;
+use Vipa\JournalBundle\Event\Article\ArticleEvents;
+use Vipa\JournalBundle\Event\ListEvent;
+use Vipa\JournalBundle\Service\JournalService;
+use Vipa\JournalBundle\Validator\Constraints\ArticleStatus;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ArticleListEventListener implements EventSubscriberInterface
@@ -49,7 +49,7 @@ class ArticleListEventListener implements EventSubscriberInterface
     public function onListInitialized(ListEvent $event)
     {
         $journal = $this->journalService->getSelectedJournal();
-        $crossrefConfig = $this->em->getRepository('OjsDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
+        $crossrefConfig = $this->em->getRepository('VipaDoiBundle:CrossrefConfig')->findOneBy(array('journal' => $journal));
         if(!$crossrefConfig || !$crossrefConfig->isValid()) {
             return;
         }

@@ -1,15 +1,15 @@
 <?php
 
-namespace Ojs\DoiBundle\Service;
+namespace Vipa\DoiBundle\Service;
 
 
-use Ojs\DoiBundle\Entity\CrossrefConfig;
+use Vipa\DoiBundle\Entity\CrossrefConfig;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use JMS\Serializer\Exception\LogicException;
-use Ojs\CoreBundle\Params\DoiStatuses;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Service\JournalService;
+use Vipa\CoreBundle\Params\DoiStatuses;
+use Vipa\JournalBundle\Entity\Article;
+use Vipa\JournalBundle\Service\JournalService;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class DoiGenerator
