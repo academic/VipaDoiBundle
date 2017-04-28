@@ -91,12 +91,12 @@ class DoiEventListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            TwigEvents::OJS_ARTICLE_SHOW_VIEW       => 'onArticleShowView',
-            TwigEvents::OJS_ARTICLE_EDIT_VIEW       => 'onArticleEditView',
-            TwigEvents::OJS_ADMIN_STATS_DOI_TABS    => 'onAdminStatsDoiTabs',
-            TwigEvents::OJS_ADMIN_STATS_DOI_CONTENT => 'onAdminStatsDoiContent',
-            StatEvents::OJS_ADMIN_STATS_CACHE       => 'onAdminStatsCache',
-            TwigEvents::OJS_ADMIN_STATS_DOI_SCRIPT  => 'onAdminStatsDoiScript',
+            TwigEvents::VIPA_ARTICLE_SHOW_VIEW       => 'onArticleShowView',
+            TwigEvents::VIPA_ARTICLE_EDIT_VIEW       => 'onArticleEditView',
+            TwigEvents::VIPA_ADMIN_STATS_DOI_TABS    => 'onAdminStatsDoiTabs',
+            TwigEvents::VIPA_ADMIN_STATS_DOI_CONTENT => 'onAdminStatsDoiContent',
+            StatEvents::VIPA_ADMIN_STATS_CACHE       => 'onAdminStatsCache',
+            TwigEvents::VIPA_ADMIN_STATS_DOI_SCRIPT  => 'onAdminStatsDoiScript',
             'get.journal.crossref.config'           => 'onJournalCrossrefConfigRequest',
             'generate.article.doi'                  => 'onArticleDoiGenerateRequest',
         );

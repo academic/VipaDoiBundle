@@ -1,6 +1,6 @@
 {
   "name" : "vipa/doi-bundle",
-  "description" : "DOI bundle for OJS",
+  "description" : "DOI bundle for VIPA",
   "type" : "vipa-bundle",
   "keywords" : [
     "doi bundle"
